@@ -10,7 +10,13 @@
     <!-- <property name="connection.password"/> -->
     <property name="show_sql">true</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <!-- DB schema will be updated if needed -->
+      <property name="connection.url">jdbc:mysql://34.86.200.102:3306</property>
+      <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+      <mapping class="com.bf.employee.entity.RegistrationToken"/>
+      <mapping resource="RegistrationToken.hbm.xml"/>
+      <mapping class="com.bf.employee.entity.User"/>
+      <mapping resource="User.hbm.xml"/>
+      <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>
