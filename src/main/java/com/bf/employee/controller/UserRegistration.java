@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.*;
 
@@ -21,10 +22,13 @@ import java.util.*;
 public class UserRegistration {
     @Resource
     private SessionFactory sf;
+    @Resource
+    private HttpServletRequest request;
     @Autowired
     private UserService userService;
     @Autowired
     private RegistrationTokenService registrationTokenService;
+
 
     @RequestMapping("/test")
     public String test(){
@@ -41,13 +45,14 @@ public class UserRegistration {
     }
 
     @RequestMapping("/registerUser")
-    @Transactional
-    public User registerUser2(){
-
+    public User registerUser(){
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
         User user1 = new User();
-        user1.setUserName("tUserName2");
-        user1.setEmail("tEmail2@gmail.com");
-        user1.setPassword("tPW2");
+        user1.setUserName(username);
+        user1.setEmail(email);
+        user1.setPassword(password);
         userService.registerUser(user1);
 
         return user1;
@@ -56,7 +61,8 @@ public class UserRegistration {
     }
     @RequestMapping("/isRegTokExists")
     public boolean isRegTokExists () {
-        return registrationTokenService.isRegTokExist("faius3f4g56he");
+        String token = request.getParameter("token");
+        return registrationTokenService.isRegTokExist(token);
     }
 
 
