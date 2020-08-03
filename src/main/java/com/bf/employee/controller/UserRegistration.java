@@ -1,9 +1,13 @@
 package com.bf.employee.controller;
 
+import com.bf.employee.dao.UserDAO;
 import com.bf.employee.entity.*;
+import com.bf.employee.service.serviceImpl.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +20,8 @@ import java.util.*;
 public class UserRegistration {
     @Resource
     private SessionFactory sf;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/test")
     public String test(){
@@ -44,20 +50,34 @@ public class UserRegistration {
         }
     }
 
+//    @RequestMapping("/registerUserTest")
+//    @Transactional
+//    public User registerUser(){
+//
+//        User user1 = new User();
+//        user1.setUserName("tUserName");
+//        user1.setEmail("tEmail@gmail.com");
+//        user1.setPassword("tPW");
+//
+//        Session session = sf.getCurrentSession();
+//        session.persist(user1);
+//
+//
+//        return user1;
+//
+//    }
     @RequestMapping("/registerUser")
     @Transactional
-    public User registerUser(){
+    public User registerUser2(){
 
         User user1 = new User();
-        user1.setUserName("tUserName");
-        user1.setEmail("tEmail@gmail.com");
-        user1.setPassword("tPW");
-
-        Session session = sf.getCurrentSession();
-        session.persist(user1);
-
+        user1.setUserName("tUserName2");
+        user1.setEmail("tEmail2@gmail.com");
+        user1.setPassword("tPW2");
+        userService.registerUser(user1);
 
         return user1;
+
 
     }
 
