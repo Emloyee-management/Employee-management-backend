@@ -2,6 +2,7 @@ package com.bf.employee.controller;
 
 import com.bf.employee.dao.UserDAO;
 import com.bf.employee.entity.*;
+import com.bf.employee.service.serviceImpl.RegistrationTokenService;
 import com.bf.employee.service.serviceImpl.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,6 +23,8 @@ public class UserRegistration {
     private SessionFactory sf;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RegistrationTokenService registrationTokenService;
 
     @RequestMapping("/test")
     public String test(){
@@ -34,38 +37,9 @@ public class UserRegistration {
             res.add((RegistrationToken)i);
             s=s.concat(((RegistrationToken) i).getToken())+"\n";
         }
-
         return s;
     }
-    @RequestMapping("/isRegTokExists")
-    public boolean isRegTokExists () {
-        Session session = sf.getCurrentSession();
-        Query query = session.
-                createQuery("select 1 from RegistrationToken t where t.token = \'faius3fe4g56he\'");
 
-        if((query.uniqueResult() != null)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-//    @RequestMapping("/registerUserTest")
-//    @Transactional
-//    public User registerUser(){
-//
-//        User user1 = new User();
-//        user1.setUserName("tUserName");
-//        user1.setEmail("tEmail@gmail.com");
-//        user1.setPassword("tPW");
-//
-//        Session session = sf.getCurrentSession();
-//        session.persist(user1);
-//
-//
-//        return user1;
-//
-//    }
     @RequestMapping("/registerUser")
     @Transactional
     public User registerUser2(){
@@ -79,6 +53,10 @@ public class UserRegistration {
         return user1;
 
 
+    }
+    @RequestMapping("/isRegTokExists")
+    public boolean isRegTokExists () {
+        return registrationTokenService.isRegTokExist("faius3f4g56he");
     }
 
 

@@ -11,5 +11,4 @@ public interface UserDAO {
 
     void registerUser(User user);
 
-
 }
