@@ -59,9 +59,14 @@ public class UserRegistration {
         user1.setUserName(username);
         user1.setEmail(email);
         user1.setPassword(password);
-        userService.registerUser(user1);
+        boolean success = userService.registerUser(user1);
+        if(success){ //user is successfully registered to the DB
+            return user1;
+        }else{ //user already exist in the DB
+            return new User();
+        }
 
-        return user1;
+
 
 
     }
