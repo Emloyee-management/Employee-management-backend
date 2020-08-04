@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.bf.employee.entity.VisaStatus" table="VisaStatus" schema="employee">
+        <id name="id">
+            <column name="ID" sql-type="int(11)"/>
+        </id>
+        <property name="VisaType">
+            <column name="VisaType" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="Active">
+            <column name="Active" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="ModificationDate">
+            <column name="Password" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="CreateUser">
+            <column name="CreateUser" sql-type="varchar(45)"/>
+        </property>
+
+    </class>
+</hibernate-mapping>

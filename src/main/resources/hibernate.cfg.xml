@@ -14,7 +14,7 @@
       <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
 
-    <mapping resource="User.hbm.xml"/>
+      <mapping resource="User.hbm.xml"/>
       <mapping class="com.bf.employee.entity.User"/>
       <mapping class="com.bf.employee.entity.Role"/>
       <mapping resource="Role.hbm.xml"/>
@@ -24,5 +24,7 @@
       <mapping class="com.bf.employee.entity.RegistrationToken"/>
       <mapping resource="RegistrationToken.hbm.xml"/>
       <mapping resource="User.hbm.xml"/>
+      <mapping class="com.bf.employee.entity.VisaStatus"/>
+      <mapping resource="VisaStatus.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
