@@ -1,11 +1,16 @@
 package com.bf.employee.entity;
 
+import lombok.Builder;
+import lombok.ToString;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
 
+@Builder
+@ToString
 @Entity
 public class Person {
     private int id;
@@ -13,7 +18,6 @@ public class Person {
     private String lastName;
     private String middleName;
     private String email;
-    private Integer column6;
     private String cellphone;
     private String alternatePhone;
     private String gender;
@@ -68,16 +72,6 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Basic
-    @Column(name = "column_6", nullable = true)
-    public Integer getColumn6() {
-        return column6;
-    }
-
-    public void setColumn6(Integer column6) {
-        this.column6 = column6;
     }
 
     @Basic
@@ -140,7 +134,6 @@ public class Person {
                 Objects.equals(lastName, person.lastName) &&
                 Objects.equals(middleName, person.middleName) &&
                 Objects.equals(email, person.email) &&
-                Objects.equals(column6, person.column6) &&
                 Objects.equals(cellphone, person.cellphone) &&
                 Objects.equals(alternatePhone, person.alternatePhone) &&
                 Objects.equals(gender, person.gender) &&
@@ -150,6 +143,8 @@ public class Person {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, middleName, email, column6, cellphone, alternatePhone, gender, ssn, dob);
+        return Objects.hash(id, firstName, lastName, middleName, email, cellphone, alternatePhone, gender, ssn, dob);
     }
+
+
 }
