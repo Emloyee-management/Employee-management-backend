@@ -5,6 +5,7 @@ import lombok.Builder;
 import javax.persistence.*;
 import java.util.Objects;
 
+@Builder
 @Entity
 @Builder
 public class Employee {
