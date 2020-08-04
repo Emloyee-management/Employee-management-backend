@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+/*
+* Service class for User
+*/
 @Service
 public class UserService {
 
     @Autowired
     private UserDAO userDAO;
 
+    /*
+    * Save user to the DB
+    */
     @Transactional
     public void registerUser(User user) {
         userDAO.registerUser(user);

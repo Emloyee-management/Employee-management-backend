@@ -12,13 +12,13 @@ public class UserHibernateDAOImpl extends AbstractHibernateDAO implements UserDA
         setClazz(User.class);
     }
 
+    /*
+    * Override method from RegistrationTokenDAO.
+    * Save a User into DB
+    */
     @Override
     public void registerUser(User user) {
         getCurrentSession().persist(user);
     }
 
-//    @Override
-//    public User getUserById(Integer id) {
-//        return (User) findById(id);
-//    }
 }

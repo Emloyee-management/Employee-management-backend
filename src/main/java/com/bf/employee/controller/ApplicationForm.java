@@ -15,8 +15,13 @@ import java.util.Map;
 
 @RestController
 public class ApplicationForm {
+    /*
+    * Controller method for testing parsing HTTP request parameters
+    * */
     @RequestMapping(path ="/test", consumes= "application/json")
     public void test(@RequestBody Map<String, String> something){
         System.out.println(something.get("key"));
     }
+
+
 }

@@ -1,14 +1,14 @@
 {
-  //person
+  "__comment1__" : "below is for PERSON Table",
   "firstName" : "value1",
   "lastName" : "value2",
   "middleName" : 3,
   "nickname" : "value1",
 
-  //employee
+  "__comment2__" : "below is for EMPLOYEE Table",
   "avatar" : "value2",
 
-  //address
+  "__comment3__" : "below is for ADDRESS Table",
   "addressLine1" : 3,
   "addressLine2" : "value1",
   "city" : "value2",
@@ -16,44 +16,48 @@
   "stateName" : "value1",
   "stateAbbr" : "value2",
 
-  //person
+  "__comment4__" : "below is for PERSON Table",
   "cellphone" : 3,
   "alternatePhone" : "value1",
 
-  //employee
+  "__comment5__" : "below is for EMPLOYEE Table",
   "car_maker" : "value2",
   "car_model" : 3,
   "car_color" : "value1",
 
-  //user**pre-filled, && person
+  "__comment6__" : "below is for USER,PERSON Table",
   "email" : "value2",
 
-  //person
+  "__comment7__" : "below is for PERSON Table",
   "ssn" : 3,
   "dobMonth" : "value1",
   "dobDate" : "value2",
   "dobYear" : 3,
   "gender": 3,
 
-  //employee
-  "visaType" : "value1", //get id from visaStatus, then put id
+  "__comment8__" : "below is for EMPLOYEE Table",
+  "__comment9__" : "for visaType, get id from visaStatus table, and put ID",
+  "visaType" : "value1",
   "visaStartDate" : "value2",
   "visaEndDate" : 3,
 
-  //employee
+  "__comment10__" : "below is for EMPLOYEE Table",
   "driverLisence" : "value1",
   "driverLisence_expiratioinDate" : "value2",
 
-  //??
+  "__comment11__" : "below is for ??? Table",
+  "__comment12__" : "reference_address is not only one field. Refer Address Table",
   "reference_firstName" : 3,
   "reference_lastNname" : "value1",
   "reference_middleNname" : "value2",
   "reference_cellphone" : 3,
-  "reference_address" : "value1", //뭐가 더 많당
+  "reference_address" : "value1",
   "reference_email" : "value2",
   "reference_relationship" : 3,
 
-  //?? as many as many EC NamedParameter?
+
+  "__comment13__" : "below is for ??? Table",
+  "__comment14__" : "as many as many Emergency Contact maybe I can use NamedParameter?",
   "emergency_firstName" : 3,
   "emergency_lastNname" : "value1",
   "emergency_middleNname" : "value2",
