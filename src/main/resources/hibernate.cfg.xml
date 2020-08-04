@@ -12,6 +12,7 @@
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
       <property name="connection.url">jdbc:mysql://34.86.200.102:3306/employee</property>
       <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+      <mapping class="com.bf.employee.entity.RegistrationToken"/>
     <property name="hibernate.hbm2ddl.auto">update</property>
 
       <mapping resource="User.hbm.xml"/>
@@ -31,7 +32,9 @@
       <mapping resource="Person.hbm.xml"/>
     <mapping class="com.bf.employee.entity.Employee"/>
     <mapping resource="Employee.hbm.xml"/>
-    <!-- DB schema will be updated if needed -->
+      <mapping class="com.bf.employee.entity.VisaStatus"/>
+      <mapping resource="VisaStatus.hbm.xml"/>
+      <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>

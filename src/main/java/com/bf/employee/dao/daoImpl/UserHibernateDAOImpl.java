@@ -22,12 +22,14 @@ public class UserHibernateDAOImpl extends AbstractHibernateDAO implements UserDA
         getCurrentSession().persist(user);
     }
 
+    /*
+    * Check if the user exists in DB
+    */
     @Override
     public boolean isUserExist(User user) {
         Query query = getCurrentSession().
-                createQuery("select 1 from User u where u.userName = :userName and u.email = :email");
+                createQuery("select 1 from User u where u.userName = :userName");
         query.setParameter("userName", user.getUserName());
-        query.setParameter("email", user.getEmail());
         if((query.uniqueResult() != null)){
             return true;
         }else{

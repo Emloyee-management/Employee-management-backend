@@ -1,12 +1,10 @@
 package com.bf.employee.controller;
 
-import com.bf.employee.entity.Employee;
-import com.bf.employee.entity.Person;
-import com.bf.employee.entity.RegistrationToken;
-import com.bf.employee.entity.User;
+import com.bf.employee.entity.*;
 import com.bf.employee.service.serviceImpl.EmployeeService;
 import com.bf.employee.service.serviceImpl.PersonService;
 import com.bf.employee.service.serviceImpl.UserService;
+import com.bf.employee.service.serviceImpl.VisaStatusService;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.json.JSONObject;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.*;
 
 @RestController
@@ -24,6 +23,8 @@ public class ApplicationForm {
     private PersonService personService;
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private VisaStatusService visaStatusService;
 
     /*
     * Controller method for testing parsing HTTP request parameters
@@ -38,22 +39,22 @@ public class ApplicationForm {
     */
     @RequestMapping(path = "/applicationForm", consumes="application/json")
     @Transactional
-    public void parseApplicationForm(@RequestBody Map<String, String> applicationForm){
-        /*
-        * Create a String that follows the format: ("mm-dd-yyyy").
-        */
-        String dob = personService.dateFormatter(applicationForm.get("dobYear"),
-                                                applicationForm.get("dobMonth"),
-                                                applicationForm.get("dobDate"));
-        String visaStart = personService.dateFormatter(applicationForm.get("visaStartYear"),
-                                                applicationForm.get("visaStartMonth"),
-                                                applicationForm.get("visaStartDate"));
-        String visaEnd = personService.dateFormatter(applicationForm.get("visaEndYear"),
-                                                applicationForm.get("visaEndMonth"),
-                                                applicationForm.get("visaEndDate"));
-        String driverL_expirationDate = personService.dateFormatter(applicationForm.get("driverL_expirationYear"),
-                                                applicationForm.get("driverL_expirationMonth"),
-                                                applicationForm.get("driverL_expirationDate"));
+    public void parseApplicationForm(@RequestBody Map<String, String> applicationForm) throws ParseException {
+//        /*
+//        * Create a String that follows the format: ("mm-dd-yyyy").
+//        */
+//        String dob = personService.dateFormatter(applicationForm.get("dobYear"),
+//                                                applicationForm.get("dobMonth"),
+//                                                applicationForm.get("dobDate"));
+//        String visaStart = personService.dateFormatter(applicationForm.get("visaStartYear"),
+//                                                applicationForm.get("visaStartMonth"),
+//                                                applicationForm.get("visaStartDate"));
+//        String visaEnd = personService.dateFormatter(applicationForm.get("visaEndYear"),
+//                                                applicationForm.get("visaEndMonth"),
+//                                                applicationForm.get("visaEndDate"));
+//        String driverL_expirationDate = personService.dateFormatter(applicationForm.get("driverL_expirationYear"),
+//                                                applicationForm.get("driverL_expirationMonth"),
+//                                                applicationForm.get("driverL_expirationDate"));
 
         /*
          * Create Person Object and register the object to the DB
@@ -65,11 +66,11 @@ public class ApplicationForm {
                 .cellphone(applicationForm.get("cellphone"))
                 .alternatePhone(applicationForm.get("alternatePhone"))
                 .ssn(applicationForm.get("ssn"))
-                .dob(dob)
+                .dob(applicationForm.get("dob"))
                 .gender(applicationForm.get("gender"))
                 .email(applicationForm.get("email"))
                 .build();
-        boolean isPersonCreated = personService.registerPerson(person1); //returns boolean value.
+        boolean isPersonCreated = personService.registerPerson(person1); //
 
         /*
          * Retrieve personID where firstName,lastName,email,and ssn matches
@@ -79,7 +80,6 @@ public class ApplicationForm {
                 applicationForm.get("lastName"),
                 applicationForm.get("email"),
                 applicationForm.get("ssn"));
-
         String car = employeeService.carFormatter(applicationForm.get("car_maker"),
                                     applicationForm.get("car_model"),
                                     applicationForm.get("car_color"));
@@ -91,14 +91,27 @@ public class ApplicationForm {
                 .avatar(applicationForm.get("avatar"))
                 .car(car)
 //                .visaType()  "visaType" : "value1", //get id from visaStatus, then put id
-                .visaStartDate(visaStart)
-                .visaEndDate(visaEnd)
+                .visaStartDate(applicationForm.get("visaStartDate"))
+                .visaEndDate(applicationForm.get("visaEndDate"))
                 .driverLicence(applicationForm.get("driverLicence"))
-                .driverExpirationDate(driverL_expirationDate)
+                .driverExpirationDate(applicationForm.get("driverL_expirationDate"))
+                .build();
+
+
+        int isVisaStatusActive = visaStatusService.isVisaStatusActive(applicationForm.get("visaEndDate"));
+        VisaStatus visaStatus1 = VisaStatus.builder()
+                .createUser(applicationForm.get("userName"))
+                .visaType(applicationForm.get("visaType"))
+                .active(isVisaStatusActive)
                 .build();
 
         if(isPersonCreated){
+            visaStatusService.registerVisaStatus(visaStatus1);
+            int vsID = visaStatusService.findIDByUserName(applicationForm.get("userName"));
+            employee1.setVisaStatusId(vsID);
             employeeService.registerEmployee(employee1);
+
+
         }
 
     }

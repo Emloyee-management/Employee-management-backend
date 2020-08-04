@@ -4,12 +4,18 @@ package com.bf.employee.dao.daoImpl;
 import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.PersonDAO;
 import com.bf.employee.entity.Person;
+import com.bf.employee.entity.RegistrationToken;
 import com.bf.employee.entity.User;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements PersonDAO {
+
+    public PersonHibernateDAOImpl() {
+        setClazz(Person.class);
+    }
+
 
     /*
     * Override method from RegistrationTokenDAO.

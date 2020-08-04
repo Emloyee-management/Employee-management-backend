@@ -1,4 +1,6 @@
 {
+  "userName": "user1",
+
   "__comment1__" : "below is for PERSON Table",
   "firstName" : "fname",
   "lastName" : "lname",
@@ -31,7 +33,7 @@
   "__comment7__" : "below is for PERSON Table",
   "ssn" : "123-1234-5678",
   "dobMonth" : 10,
-  "dobDate" : 31,
+  "dobDate" : "10-31-1997",
   "dobYear" : 1997,
   "gender": "I don't want to answer",
 
@@ -39,17 +41,17 @@
   "__comment9__" : "for visaType, get id from visaStatus table, and put ID",
   "visaType" : "visaType",
   "visaStartMonth": 5,
-  "visaStartDate": 10,
+  "visaStartDate": "05-10-2020",
   "visaStartYear": 2020,
   "visaEndMonth" : 5,
-  "visaEndDate" : 9,
+  "visaEndDate" : "05-09-2021",
   "visaEndYear" : 2021,
 
 
   "__comment10__" : "below is for EMPLOYEE Table",
   "driverLicence" : "567-6789-7890",
   "driverL_expirationMonth" : 6,
-  "driverL_expirationDate" : 11,
+  "driverL_expirationDate" : "06-11-2020",
   "driverL_expirationYear" : 2020,
 
 

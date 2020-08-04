@@ -1,10 +1,12 @@
 package com.bf.employee.entity;
 
+import lombok.Builder;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+@Builder
 @Entity
 public class VisaStatus {
     private int ID;
@@ -70,3 +72,4 @@ public class VisaStatus {
     }
 
 }
+

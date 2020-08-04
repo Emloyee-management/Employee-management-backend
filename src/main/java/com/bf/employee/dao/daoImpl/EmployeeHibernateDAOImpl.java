@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class EmployeeHibernateDAOImpl extends AbstractHibernateDAO implements EmployeeDAO {
+
+    public EmployeeHibernateDAOImpl() {
+        setClazz(Employee.class);
+    }
+
     /*
      * Override method from RegistrationTokenDAO.
      * Register Employee to the DB
