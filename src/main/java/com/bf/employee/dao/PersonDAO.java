@@ -10,5 +10,6 @@ public interface PersonDAO {
     * Register Person to the DB
     */
     void registerPerson(Person person);
+    int findByName(String firstName, String lastName, String email, String ssn);
 
 }

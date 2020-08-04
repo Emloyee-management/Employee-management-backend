@@ -25,4 +25,6 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
     protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
+
+
 }

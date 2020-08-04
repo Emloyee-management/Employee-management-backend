@@ -21,7 +21,15 @@ public class PersonService {
     * Register Person to the DB.
     */
     @Transactional
-    public void registerPerson(Person person){ personDAO.registerPerson(person); }
+    public void registerPerson(Person person){
+        personDAO.registerPerson(person);
+    }
+
+    public int findIDByName(String firstName, String lastName, String email, String ssn){
+        int id = personDAO.findByName(firstName, lastName, email,ssn);
+        return id;
+    }
+
 
 
     /*

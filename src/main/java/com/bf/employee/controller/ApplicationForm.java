@@ -74,13 +74,22 @@ public class ApplicationForm {
 
 
         /*
-        * Create Employee object and register the object to the DB
-        */
+         * Retrieve personID where firstName,lastName,email,and ssn matches
+         * and create a String that follows the format: "Maker_Model_Color". e.g. "Kia_k4_Black"
+         */
+        int personID = personService.findIDByName(applicationForm.get("firstName"),
+                applicationForm.get("lastName"),
+                applicationForm.get("email"),
+                applicationForm.get("ssn"));
+
         String car = employeeService.carFormatter(applicationForm.get("car_maker"),
                                     applicationForm.get("car_model"),
                                     applicationForm.get("car_color"));
+        /*
+         * Create Employee object and register the object to the DB
+         */
         Employee employee1 = Employee.builder()
-//                .personId()
+                .personId(personID)
                 .avatar(applicationForm.get("avatar"))
                 .car(car)
 //                .visaType()  "visaType" : "value1", //get id from visaStatus, then put id
