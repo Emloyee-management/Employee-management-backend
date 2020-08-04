@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.bf.employee.entity.Person" table="Person" schema="employee">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="firstName">
+            <column name="firstName" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="lastName">
+            <column name="lastName" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="middleName">
+            <column name="middleName" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="column6">
+            <column name="column_6" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="cellphone">
+            <column name="cellphone" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="alternatePhone">
+            <column name="alternatePhone" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="gender">
+            <column name="gender" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="ssn">
+            <column name="ssn" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="dob">
+            <column name="DOB" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

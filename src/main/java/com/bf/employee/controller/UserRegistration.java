@@ -30,19 +30,19 @@ public class UserRegistration {
     private RegistrationTokenService registrationTokenService;
 
 
-    @RequestMapping("/test")
-    public String test(){
-        Session session = sf.getCurrentSession();
-        String hql = "select r from RegistrationToken r";
-        Query query = session.createQuery(hql, RegistrationToken.class);
-        List<RegistrationToken> res = new ArrayList<>();
-        String s = "h";
-        for(Object i : query.getResultList()){
-            res.add((RegistrationToken)i);
-            s=s.concat(((RegistrationToken) i).getToken())+"\n";
-        }
-        return s;
-    }
+//    @RequestMapping("/test")
+//    public String test(){
+//        Session session = sf.getCurrentSession();
+//        String hql = "select r from RegistrationToken r";
+//        Query query = session.createQuery(hql, RegistrationToken.class);
+//        List<RegistrationToken> res = new ArrayList<>();
+//        String s = "h";
+//        for(Object i : query.getResultList()){
+//            res.add((RegistrationToken)i);
+//            s=s.concat(((RegistrationToken) i).getToken())+"\n";
+//        }
+//        return s;
+//    }
 
     @RequestMapping("/registerUser")
     public User registerUser(){
