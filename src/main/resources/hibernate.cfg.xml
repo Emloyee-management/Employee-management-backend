@@ -12,6 +12,15 @@
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
       <property name="connection.url">jdbc:mysql://34.86.200.102:3306/employee</property>
       <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+
+    <mapping resource="User.hbm.xml"/>
+      <mapping class="com.bf.employee.entity.User"/>
+      <mapping class="com.bf.employee.entity.Role"/>
+      <mapping resource="Role.hbm.xml"/>
+      <mapping class="com.bf.employee.entity.UserRole"/>
+      <mapping resource="UserRole.hbm.xml"/>
+      <!-- DB schema will be updated if needed -->
       <mapping class="com.bf.employee.entity.RegistrationToken"/>
     <property name="hibernate.hbm2ddl.auto">update</property>
 
