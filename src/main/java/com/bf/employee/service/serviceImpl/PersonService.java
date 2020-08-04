@@ -21,8 +21,14 @@ public class PersonService {
     * Register Person to the DB.
     */
     @Transactional
-    public void registerPerson(Person person){
-        personDAO.registerPerson(person);
+    public boolean registerPerson(Person person){
+
+        if(personDAO.isPersonExist(person)){ // the person already EXISTS in the DB
+            return false;
+        }else{ //the person does NOT EXIST In DB
+            personDAO.registerPerson(person);
+            return true;
+        }
     }
 
     public int findIDByName(String firstName, String lastName, String email, String ssn){

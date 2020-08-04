@@ -39,7 +39,6 @@ public class ApplicationForm {
     @RequestMapping(path = "/applicationForm", consumes="application/json")
     @Transactional
     public void parseApplicationForm(@RequestBody Map<String, String> applicationForm){
-
         /*
         * Create a String that follows the format: ("mm-dd-yyyy").
         */
@@ -70,8 +69,7 @@ public class ApplicationForm {
                 .gender(applicationForm.get("gender"))
                 .email(applicationForm.get("email"))
                 .build();
-        personService.registerPerson(person1);
-
+        boolean isPersonCreated = personService.registerPerson(person1); //returns boolean value.
 
         /*
          * Retrieve personID where firstName,lastName,email,and ssn matches
@@ -99,7 +97,9 @@ public class ApplicationForm {
                 .driverExpirationDate(driverL_expirationDate)
                 .build();
 
-        employeeService.registerEmployee(employee1);
+        if(isPersonCreated){
+            employeeService.registerEmployee(employee1);
+        }
 
     }
 

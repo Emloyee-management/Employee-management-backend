@@ -10,11 +10,9 @@ public interface UserDAO {
     * Save a User into DB
     * */
     void registerUser(User user);
+    /*
+     * Check if the User exist in DB
+    */
     boolean isUserExist(User user);
-
-//    User getUserById(Integer id);
-//    List<User> getUserByIds(List<Integer> idList);
-//    Integer getUserCount();
-//    User getUserById(Integer id);
 
 }
