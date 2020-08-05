@@ -22,6 +22,10 @@ public class Person {
     private String gender;
     private String ssn;
     private String dob;
+    @Tolerate
+    public Person(){
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

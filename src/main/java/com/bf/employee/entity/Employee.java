@@ -1,6 +1,7 @@
 package com.bf.employee.entity;
 
 import lombok.Builder;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -29,6 +30,9 @@ public class Employee {
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
+    }
+    @Tolerate
+    public Employee() {
     }
 
     public void setId(int id) {
