@@ -1,7 +1,6 @@
 package com.bf.employee.service.serviceImpl;
 
 import com.bf.employee.dao.VisaStatusDAO;
-import com.bf.employee.entity.Employee;
 import com.bf.employee.entity.VisaStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 @Service
 public class VisaStatusService {
@@ -32,5 +30,6 @@ public class VisaStatusService {
     public int findIDByUserName(String userName){
         int id = visaStatusDAO.findByUserName(userName);
         return id;
+
     }
 }

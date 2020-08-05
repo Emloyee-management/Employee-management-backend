@@ -8,9 +8,9 @@ import com.bf.employee.entity.VisaStatus;
 public interface VisaStatusDAO {
 
     /*
-    * Save a User into DB
+    * Save a User into DB and return ID
     */
-    void registerVisaStatus(VisaStatus visaStatus);
+    int registerVisaStatus(VisaStatus visaStatus);
     public int findByUserName(String userName);
 }
 

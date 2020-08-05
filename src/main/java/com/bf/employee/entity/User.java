@@ -14,6 +14,7 @@ public class User {
     private String modificationDate;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return id;

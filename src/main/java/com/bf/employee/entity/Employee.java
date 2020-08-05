@@ -2,14 +2,11 @@ package com.bf.employee.entity;
 
 import lombok.Builder;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
-@Builder
 @Entity
+@Builder
 public class Employee {
     private int id;
     private Integer personId;
@@ -27,6 +24,7 @@ public class Employee {
     private Integer houseId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

@@ -2,7 +2,6 @@ package com.bf.employee.dao.daoImpl;
 
 import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.VisaStatusDAO;
-import com.bf.employee.entity.Employee;
 import com.bf.employee.entity.VisaStatus;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -16,8 +15,9 @@ public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements 
 
 
     @Override
-    public void registerVisaStatus(VisaStatus visaStatus) {
+    public int registerVisaStatus(VisaStatus visaStatus) {
         getCurrentSession().persist(visaStatus);
+        return visaStatus.getId();
     }
 
     /*
@@ -29,6 +29,7 @@ public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements 
                 createQuery("select vs.id from VisaStatus vs " +
                         "where vs.createUser =:userName");
         query.setParameter("userName", userName);
-        return (int)query.uniqueResult();
+        System.out.println("visa: "+query.getResultList().toString());
+        return (int)query.getResultList().get(0);
     }
 }

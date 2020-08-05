@@ -1,10 +1,7 @@
 package com.bf.employee.controller;
 
 import com.bf.employee.entity.*;
-import com.bf.employee.service.serviceImpl.EmployeeService;
-import com.bf.employee.service.serviceImpl.PersonService;
-import com.bf.employee.service.serviceImpl.UserService;
-import com.bf.employee.service.serviceImpl.VisaStatusService;
+import com.bf.employee.service.serviceImpl.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.json.JSONObject;
@@ -25,6 +22,8 @@ public class ApplicationForm {
     private EmployeeService employeeService;
     @Autowired
     private VisaStatusService visaStatusService;
+    @Autowired
+    private AddressService addressService;
 
     /*
     * Controller method for testing parsing HTTP request parameters
@@ -40,24 +39,9 @@ public class ApplicationForm {
     @RequestMapping(path = "/applicationForm", consumes="application/json")
     @Transactional
     public void parseApplicationForm(@RequestBody Map<String, String> applicationForm) throws ParseException {
-//        /*
-//        * Create a String that follows the format: ("mm-dd-yyyy").
-//        */
-//        String dob = personService.dateFormatter(applicationForm.get("dobYear"),
-//                                                applicationForm.get("dobMonth"),
-//                                                applicationForm.get("dobDate"));
-//        String visaStart = personService.dateFormatter(applicationForm.get("visaStartYear"),
-//                                                applicationForm.get("visaStartMonth"),
-//                                                applicationForm.get("visaStartDate"));
-//        String visaEnd = personService.dateFormatter(applicationForm.get("visaEndYear"),
-//                                                applicationForm.get("visaEndMonth"),
-//                                                applicationForm.get("visaEndDate"));
-//        String driverL_expirationDate = personService.dateFormatter(applicationForm.get("driverL_expirationYear"),
-//                                                applicationForm.get("driverL_expirationMonth"),
-//                                                applicationForm.get("driverL_expirationDate"));
 
         /*
-         * Create Person Object and register the object to the DB
+         * Create Person, Employee, Address, and VisaStatus and start Onboarding process.
          */
         Person person1 = Person.builder()
                 .firstName(applicationForm.get("firstName"))
@@ -70,49 +54,80 @@ public class ApplicationForm {
                 .gender(applicationForm.get("gender"))
                 .email(applicationForm.get("email"))
                 .build();
-        boolean isPersonCreated = personService.registerPerson(person1); //
-
-        /*
-         * Retrieve personID where firstName,lastName,email,and ssn matches
-         * and create a String that follows the format: "Maker_Model_Color". e.g. "Kia_k4_Black"
-         */
-        int personID = personService.findIDByName(applicationForm.get("firstName"),
-                applicationForm.get("lastName"),
-                applicationForm.get("email"),
-                applicationForm.get("ssn"));
         String car = employeeService.carFormatter(applicationForm.get("car_maker"),
-                                    applicationForm.get("car_model"),
-                                    applicationForm.get("car_color"));
-        /*
-         * Create Employee object and register the object to the DB
-         */
+                applicationForm.get("car_model"),
+                applicationForm.get("car_color"));
         Employee employee1 = Employee.builder()
-                .personId(personID)
-                .avatar(applicationForm.get("avatar"))
-                .car(car)
-//                .visaType()  "visaType" : "value1", //get id from visaStatus, then put id
-                .visaStartDate(applicationForm.get("visaStartDate"))
-                .visaEndDate(applicationForm.get("visaEndDate"))
-                .driverLicence(applicationForm.get("driverLicence"))
-                .driverExpirationDate(applicationForm.get("driverL_expirationDate"))
-                .build();
-
-
+//                    .personId()
+                    .avatar(applicationForm.get("avatar"))
+                    .car(car)
+//                    .visaType()
+                    .visaStartDate(applicationForm.get("visaStartDate"))
+                    .visaEndDate(applicationForm.get("visaEndDate"))
+                    .driverLicence(applicationForm.get("driverLicence"))
+                    .driverExpirationDate(applicationForm.get("driverL_expirationDate"))
+                    .build();
         int isVisaStatusActive = visaStatusService.isVisaStatusActive(applicationForm.get("visaEndDate"));
         VisaStatus visaStatus1 = VisaStatus.builder()
                 .createUser(applicationForm.get("userName"))
                 .visaType(applicationForm.get("visaType"))
                 .active(isVisaStatusActive)
                 .build();
+        Address address1 = Address.builder()
+                .addressLine1(applicationForm.get("addressLine1"))
+                .addressLine2(applicationForm.get("addressLine2"))
+                .city(applicationForm.get("city"))
+                .zipcode(applicationForm.get("zipcode"))
+                .stateName(applicationForm.get("stateName"))
+                .stateAbbr(applicationForm.get("stateAbbr"))
+//                .personId()
+                .build();
 
-        if(isPersonCreated){
-            visaStatusService.registerVisaStatus(visaStatus1);
-            int vsID = visaStatusService.findIDByUserName(applicationForm.get("userName"));
-            employee1.setVisaStatusId(vsID);
-            employeeService.registerEmployee(employee1);
+        boolean isOnBoard = personService.onBoardEmployee(person1, employee1, address1, visaStatus1);
+        System.out.println("isOnBoard: " + isOnBoard);
 
+        /*
+        * Create Reference : Person, Address, Contact
+        */
+        Person reference = Person.builder()
+                .firstName(applicationForm.get("reference_firstName"))
+                .lastName(applicationForm.get("reference_lastName"))
+                .middleName(applicationForm.get("reference_middleName"))
+                .cellphone(applicationForm.get("reference_cellphone"))
+                .ssn(applicationForm.get("null"))
+                .email(applicationForm.get("reference_email"))
+                .build();
+        Address reference_address = Address.builder()
+                .addressLine1(applicationForm.get("reference_addressLine1"))
+                .addressLine2(applicationForm.get("reference_addressLine2"))
+                .city(applicationForm.get("reference_city"))
+                .zipcode(applicationForm.get("reference_zipcode"))
+                .stateName(applicationForm.get("reference_stateName"))
+                .stateAbbr(applicationForm.get("reference_stateAbbr"))
+//                .personId()
+                .build();
+        Contact reference_contact = Contact.builder()
+//                .personId()
+                .relationship(applicationForm.get("reference_relationship"))
+                .build();
+        boolean isReference = personService.addReference(reference, reference_address, reference_contact);
+        System.out.println("isReference: "+ isReference);
 
-        }
+        /*
+        * Create Emergency Contacts
+        */
+        Person emergency = Person.builder()
+                .firstName(applicationForm.get("emergency_firstName"))
+                .lastName(applicationForm.get("emergency_lastName"))
+                .middleName(applicationForm.get("emergency_middleName"))
+                .cellphone(applicationForm.get("emergency_cellphone"))
+                .email(applicationForm.get("emergency_email"))
+                .build();
+        Contact emergency_contact = Contact.builder()
+                .relationship(applicationForm.get("emergency_relationship")).build();
+//                .personId()
+        boolean isEmergency = personService.addEmergencyContact(emergency, emergency_contact);
+        System.out.println("isEmergency: "+isEmergency);
 
     }
 

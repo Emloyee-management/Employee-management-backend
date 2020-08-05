@@ -18,27 +18,28 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
 
 
     /*
-    * Override method from RegistrationTokenDAO.
+    * Override method from PersonDAO.
     * Register Person to the DB
     */
     @Override
-    public void registerPerson(Person person) {
+    public int registerPerson(Person person) {
         getCurrentSession().persist(person);
+        return person.getId();
     }
 
     /*
     * Return PersonID with matching firstName, lastName, email, and ssn
     */
     @Override
-    public int findByName(String firstName, String lastName, String email, String ssn) {
+    public int findByName(String firstName, String lastName, String email) {
         Query query = getCurrentSession().
                 createQuery("select p.id from Person p " +
-                        "where p.firstName = :firstName and p.lastName = :lastName and p.email = :email and p.ssn = :ssn");
+                        "where p.firstName = :firstName and p.lastName = :lastName and p.email = :email");
         query.setParameter("firstName", firstName);
         query.setParameter("lastName", lastName);
         query.setParameter("email", email);
-        query.setParameter("ssn", ssn);
-        return (int)query.uniqueResult();
+        return (int)query.getResultList().get(0);
+
     }
 
     /*
@@ -48,11 +49,10 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
     public boolean isPersonExist(Person person) {
         Query query = getCurrentSession().
                 createQuery("select 1 from Person p " +
-                        "where p.firstName = :firstName and p.lastName = :lastName and p.email = :email and p.ssn = :ssn");
+                        "where p.firstName = :firstName and p.lastName = :lastName and p.email = :email");
         query.setParameter("firstName", person.getFirstName());
         query.setParameter("lastName", person.getLastName());
         query.setParameter("email", person.getEmail());
-        query.setParameter("ssn", person.getSsn());
         if((query.uniqueResult() != null)){
             return true;
         }else{

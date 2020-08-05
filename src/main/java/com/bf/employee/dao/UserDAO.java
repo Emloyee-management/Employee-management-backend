@@ -9,7 +9,7 @@ public interface UserDAO {
     /*
     * Save a User into DB
     * */
-    void registerUser(User user);
+    int registerUser(User user);
     /*
      * Check if the User exist in DB
     */

@@ -1,8 +1,8 @@
 package com.bf.employee.entity;
 
 import lombok.Builder;
-import lombok.Generated;
 import lombok.ToString;
+import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -23,6 +23,7 @@ public class Person {
     private String dob;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
