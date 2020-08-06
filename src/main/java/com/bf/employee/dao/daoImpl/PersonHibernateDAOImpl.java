@@ -67,7 +67,7 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
         PersonalInfoResponse personalInfoResponse = new PersonalInfoResponse();
 
         Session session = getCurrentSession();
-        String employeeQ = "SELECT e FROM Employee e WHERE id = :person_id";
+        String employeeQ = "SELECT e FROM Employee e WHERE personId = :person_id";
         String personQ = "SELECT p FROM Person p WHERE id = :person_id";
         String addressQ = "SELECT a FROM Address a WHERE personId = :person_id";
         String contactQ = "SELECT c FROM Contact c WHERE personId = :person_id AND isEmergency = 1";
