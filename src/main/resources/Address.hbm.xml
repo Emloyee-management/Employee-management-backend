@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.bf.employee.entity.Address" table="Address" schema="employee">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="addressLine1">
+            <column name="addressLine1" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="addressLine2">
+            <column name="addressLine2" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="city">
+            <column name="city" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="zipcode">
+            <column name="zipcode" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="stateName">
+            <column name="stateName" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="stateAbbr">
+            <column name="stateAbbr" sql-type="varchar(10)" length="10" not-null="true"/>
+        </property>
+        <property name="personId">
+            <column name="personID" sql-type="int(11)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

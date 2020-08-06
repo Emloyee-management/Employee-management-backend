@@ -1,0 +1,83 @@
+{
+  "userName": "user3",
+
+  "__comment1__" : "below is for PERSON Table",
+  "firstName" : "fname2",
+  "lastName" : "lname2",
+  "middleName" : "mname2",
+  "nickname" : "nname",
+
+  "__comment2__" : "below is for EMPLOYEE Table",
+  "avatar" : "myavatarString",
+
+  "__comment3__" : "below is for ADDRESS Table",
+  "addressLine1" : "81 Shelley Cir.",
+  "addressLine2" : "",
+  "city" : "East Windsor",
+  "zipcode" : "08520",
+  "stateName" : "New Jersey",
+  "stateAbbr" : "NJ",
+
+  "__comment4__" : "below is for PERSON Table",
+  "cellphone" : "+1-123-234-1234",
+  "alternatePhone" : "+82-10-9876-8765",
+
+  "__comment5__" : "below is for EMPLOYEE Table",
+  "car_maker" : "Kia",
+  "car_model" : "K4",
+  "car_color" : "Black",
+
+  "__comment6__" : "below is for PERSON Table",
+  "email" : "test2@gmail.com",
+
+  "__comment7__" : "below is for PERSON Table",
+  "ssn" : "123-1234-5678",
+  "dobMonth" : 10,
+  "dobDate" : "10-31-1997",
+  "dobYear" : 1997,
+  "gender": "I don't want to answer",
+
+  "__comment8__" : "below is for EMPLOYEE Table",
+  "__comment9__" : "for visaType, get id from visaStatus table, and put ID",
+  "visaType" : "visaType",
+  "visaStartMonth": 5,
+  "visaStartDate": "05-10-2020",
+  "visaStartYear": 2020,
+  "visaEndMonth" : 5,
+  "visaEndDate" : "05-09-2021",
+  "visaEndYear" : 2021,
+
+
+  "__comment10__" : "below is for EMPLOYEE Table",
+  "driverLicence" : "567-6789-7890",
+  "driverL_expirationMonth" : 6,
+  "driverL_expirationDate" : "06-11-2020",
+  "driverL_expirationYear" : 2020,
+
+
+  "__comment11__" : "below is for PERSON, ADDRESS, CONTACT Table",
+  "reference_firstName" : "fname",
+  "reference_lastName" : "lname",
+  "reference_middleName" : "mname",
+  "reference_cellphone" : "215-123-1234",
+  "reference_addressLine1" : "52 Shelley Cir.",
+  "reference_addressLine2" : "",
+  "reference_city" : "East Windsor",
+  "reference_zipcode" : "12345",
+  "reference_stateName" : "New Jersey",
+  "reference_stateAbbr" : "NJ",
+  "reference_email" : "test@gmail.com",
+  "reference_relationship" : "coworker",
+
+
+  "__comment13__" : "below is for ??? Table",
+  "__comment14__" : "as many as many Emergency Contact maybe I can use NamedParameter?",
+  "emergency_firstName" : "emergency_f",
+  "emergency_lastName" : "emergency_l",
+  "emergency_middleName" : "emergency_m",
+  "emergency_cellphone" : "emergency_cellp",
+  "emergency_email" : "emergency_em",
+  "emergency_relationship" : "family"
+
+
+}

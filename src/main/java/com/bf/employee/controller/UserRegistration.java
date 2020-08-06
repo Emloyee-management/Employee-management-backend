@@ -29,21 +29,27 @@ public class UserRegistration {
     @Autowired
     private RegistrationTokenService registrationTokenService;
 
+//    /*
+//    * This is just for testing DB connection
+//    * */
+//    @RequestMapping("/test")
+//    public String test(){
+//        Session session = sf.getCurrentSession();
+//        String hql = "select r from RegistrationToken r";
+//        Query query = session.createQuery(hql, RegistrationToken.class);
+//        List<RegistrationToken> res = new ArrayList<>();
+//        String s = "h";
+//        for(Object i : query.getResultList()){
+//            res.add((RegistrationToken)i);
+//            s=s.concat(((RegistrationToken) i).getToken())+"\n";
+//        }
+//        return s;
+//    }
 
-    @RequestMapping("/test")
-    public String test(){
-        Session session = sf.getCurrentSession();
-        String hql = "select r from RegistrationToken r";
-        Query query = session.createQuery(hql, RegistrationToken.class);
-        List<RegistrationToken> res = new ArrayList<>();
-        String s = "h";
-        for(Object i : query.getResultList()){
-            res.add((RegistrationToken)i);
-            s=s.concat(((RegistrationToken) i).getToken())+"\n";
-        }
-        return s;
-    }
-
+    /*
+    * Controller method for user registration. Accepts 'username', 'email', and 'password' parameters from HTTP request,
+    * creates a user and registers the user in the DB.
+    * */
     @RequestMapping("/registerUser")
     public User registerUser(){
         String username = request.getParameter("username");
@@ -53,12 +59,21 @@ public class UserRegistration {
         user1.setUserName(username);
         user1.setEmail(email);
         user1.setPassword(password);
-        userService.registerUser(user1);
+        boolean success = userService.registerUser(user1);
+        if(success){ //user is successfully registered to the DB
+            return user1;
+        }else{ //user already exist in the DB
+            return new User();
+        }
 
-        return user1;
+
 
 
     }
+    /*
+    * Controller method for registration token checking. Accepts 'token' parameter from HTTP request,
+    * checks if the token exist, and return true if it exists and vise versa.
+    * */
     @RequestMapping("/isRegTokExists")
     public boolean isRegTokExists () {
         String token = request.getParameter("token");

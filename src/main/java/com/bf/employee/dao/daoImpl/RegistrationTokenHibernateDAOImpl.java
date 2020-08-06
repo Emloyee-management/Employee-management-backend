@@ -13,6 +13,10 @@ public class RegistrationTokenHibernateDAOImpl extends AbstractHibernateDAO impl
         setClazz(RegistrationToken.class);
     }
 
+    /*
+    * Override method from RegistrationTokenDAO.
+    * Check if the RegistrationToken exists in the DB
+    */
     @Override
     public boolean isRegTokExists(String regToken) {
 

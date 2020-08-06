@@ -3,6 +3,7 @@ package com.bf.employee.dao.daoImpl;
 import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.UserDAO;
 import com.bf.employee.entity.User;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -12,13 +13,30 @@ public class UserHibernateDAOImpl extends AbstractHibernateDAO implements UserDA
         setClazz(User.class);
     }
 
+    /*
+    * Override method from UserDAO.
+    * Save a User into DB
+    */
     @Override
-    public void registerUser(User user) {
+    public int registerUser(User user) {
         getCurrentSession().persist(user);
+        return user.getId();
     }
 
-//    @Override
-//    public User getUserById(Integer id) {
-//        return (User) findById(id);
-//    }
+    /*
+    * Check if the user exists in DB
+    */
+    @Override
+    public boolean isUserExist(User user) {
+        Query query = getCurrentSession().
+                createQuery("select 1 from User u where u.userName = :userName");
+        query.setParameter("userName", user.getUserName());
+        if((query.uniqueResult() != null)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }

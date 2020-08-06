@@ -1,10 +1,14 @@
 package com.bf.employee.entity;
 
+import lombok.Builder;
+
+import javax.persistence.*;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+@Builder
 @Entity
 public class VisaStatus {
     private int ID;
@@ -25,6 +29,7 @@ public class VisaStatus {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return ID;
@@ -70,3 +75,4 @@ public class VisaStatus {
     }
 
 }
+
