@@ -15,7 +15,7 @@
             <column name="Active" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="ModificationDate">
-            <column name="Password" sql-type="varchar(100)" length="100" not-null="true"/>
+            <column name="ModificationDate" sql-type="varchar(100)" length="100" not-null="true"/>
         </property>
         <property name="CreateUser">
             <column name="CreateUser" sql-type="varchar(45)"/>

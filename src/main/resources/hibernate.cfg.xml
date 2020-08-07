@@ -47,12 +47,6 @@
       <mapping resource="Address.hbm.xml"/>
       <mapping class="com.bf.employee.entity.Contact"/>
       <mapping resource="Contact.hbm.xml"/>
-<!--      <mapping resource="Employee.hbm.xml"/>-->
-<!--      <mapping class="com.bf.employee.entity.Employee"/>-->
-<!--      <mapping class="com.bf.employee.entity.House"/>-->
-<!--      <mapping resource="House.hbm.xml"/>-->
-<!--      <mapping class="com.bf.employee.entity.Person"/>-->
-<!--      <mapping resource="Person.hbm.xml"/>-->
     <mapping class="com.bf.employee.entity.FacilityReport"/>
     <mapping resource="FacilityReport.hbm.xml"/>
     <mapping class="com.bf.employee.entity.FacilityReportDetail"/>

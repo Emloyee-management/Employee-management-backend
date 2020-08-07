@@ -17,6 +17,5 @@ public interface VisaStatusDAO {
     VisaStatus getVisaInfo(int employeeVisaStatusId);
 
     Boolean updateVisaType(int employeeVisaStatusId, String visaType);
-
 }
 

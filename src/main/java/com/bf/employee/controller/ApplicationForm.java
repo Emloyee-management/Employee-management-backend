@@ -69,9 +69,9 @@ public class ApplicationForm {
                     .build();
         int isVisaStatusActive = visaStatusService.isVisaStatusActive(applicationForm.get("visaEndDate"));
         VisaStatus visaStatus1 = VisaStatus.builder()
-                .createUser(applicationForm.get("userName"))
-                .visaType(applicationForm.get("visaType"))
-                .active(isVisaStatusActive)
+                .CreateUser(applicationForm.get("userName"))
+                .VisaType(applicationForm.get("visaType"))
+                .Active(isVisaStatusActive)
                 .build();
         Address address1 = Address.builder()
                 .addressLine1(applicationForm.get("addressLine1"))

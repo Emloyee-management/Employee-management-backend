@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,20 +17,30 @@ public class VisaStatusService {
     private VisaStatusDAO visaStatusDAO;
 
     @Transactional
-    public void registerVisaStatus(VisaStatus visaStatus){ visaStatusDAO.registerVisaStatus(visaStatus); }
+    public void registerVisaStatus(VisaStatus visaStatus) {
+        visaStatusDAO.registerVisaStatus(visaStatus);
+    }
 
     public int isVisaStatusActive(String visaEndDate) throws ParseException {
         String pattern = "MM-dd-yyyy";
-        if (new SimpleDateFormat(pattern).parse(visaEndDate).before(new Date())){
+        if (new SimpleDateFormat(pattern).parse(visaEndDate).before(new Date())) {
             return 0; //visa is not active
-        } else{
+        } else {
             return 1; // visa is active
         }
     }
 
-    public int findIDByUserName(String userName){
+    public int findIDByUserName(String userName) {
         int id = visaStatusDAO.findByUserName(userName);
         return id;
 
+    }
+
+    public VisaStatus getVisaStatus(int employeeVisaStatusId) {
+        return visaStatusDAO.getVisaInfo(employeeVisaStatusId);
+    }
+
+    public Boolean updateVisaType(int employeeVisaStatusId, String visaType) {
+        return visaStatusDAO.updateVisaType(employeeVisaStatusId, visaType);
     }
 }
