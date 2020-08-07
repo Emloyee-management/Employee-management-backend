@@ -11,9 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 @Builder
-@Entity
 @ToString
-@AllArgsConstructor
+@Entity
 public class VisaStatus {
     private int ID;
     private String VisaType;
@@ -79,5 +78,21 @@ public class VisaStatus {
         this.CreateUser = user;
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        VisaStatus that = (VisaStatus) o;
+//        return ID == that.ID &&
+//                getActive() == that.getActive() &&
+//                Objects.equals(getVisaType(), that.getVisaType()) &&
+//                Objects.equals(getModificationDate(), that.getModificationDate()) &&
+//                Objects.equals(getCreateUser(), that.getCreateUser());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(ID, getVisaType(), getActive(), getModificationDate(), getCreateUser());
+//    }
 }
 
