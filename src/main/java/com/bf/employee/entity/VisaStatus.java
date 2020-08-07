@@ -1,6 +1,8 @@
 package com.bf.employee.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,12 +12,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 @Builder
 @Entity
+@ToString
+@AllArgsConstructor
 public class VisaStatus {
     private int ID;
     private String VisaType;
     private int Active;
     private String ModificationDate;
     private String CreateUser;
+
 
     @Basic
     @Column(name = "VisaType")
