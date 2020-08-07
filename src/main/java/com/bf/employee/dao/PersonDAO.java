@@ -1,6 +1,7 @@
 package com.bf.employee.dao;
 
 import com.bf.employee.entity.Person;
+import com.bf.employee.entity.PersonalInfoResponse;
 
 /*
 * DAO interface for Person
@@ -19,4 +20,7 @@ public interface PersonDAO {
     */
     boolean isPersonExist(Person person);
 
+    public PersonalInfoResponse getPersonalInfo(Integer personId);
+
 }
+

@@ -1,6 +1,7 @@
 package com.bf.employee.entity;
 
 import lombok.Builder;
+import lombok.Generated;
 import lombok.ToString;
 import org.hibernate.annotations.Generated;
 
@@ -21,6 +22,10 @@ public class Person {
     private String gender;
     private String ssn;
     private String dob;
+    @Tolerate
+    public Person(){
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

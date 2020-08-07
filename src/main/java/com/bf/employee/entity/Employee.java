@@ -1,10 +1,12 @@
 package com.bf.employee.entity;
 
 import lombok.Builder;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.Objects;
 
+@Builder
 @Entity
 @Builder
 public class Employee {
@@ -28,6 +30,9 @@ public class Employee {
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
+    }
+    @Tolerate
+    public Employee() {
     }
 
     public void setId(int id) {
