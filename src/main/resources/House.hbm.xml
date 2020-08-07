@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.bf.employee.entity.House" table="House" schema="employee">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="contactId">
+            <column name="contactID" sql-type="int(11)"/>
+        </property>
+        <property name="address">
+            <column name="address" sql-type="varchar(100)" length="100"/>
+        </property>
+        <property name="numberOfPerson">
+            <column name="numberOfPerson" sql-type="int(11)"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.bf.employee.entity.FacilityReportDetail" table="FacilityReportDetail" schema="employee">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="reportId">
+            <column name="reportID" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="employeeId">
+            <column name="employeeID" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="comments">
+            <column name="comments" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="createdDate">
+            <column name="createdDate" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="lastModificationDate">
+            <column name="lastModificationDate" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

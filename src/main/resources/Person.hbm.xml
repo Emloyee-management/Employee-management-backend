@@ -9,7 +9,7 @@
             <column name="id" sql-type="int(11)"/>
         </id>
         <property name="firstName">
-            <column name="firstName" sql-type="varchar(50)" length="50"/>
+            <column name="firstName" sql-type="varchar(50)" length="50" not-null="true"/>
         </property>
         <property name="lastName">
             <column name="lastName" sql-type="varchar(50)" length="50" not-null="true"/>
@@ -19,9 +19,6 @@
         </property>
         <property name="email">
             <column name="email" sql-type="varchar(50)" length="50" not-null="true"/>
-        </property>
-        <property name="column6">
-            <column name="column_6" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="cellphone">
             <column name="cellphone" sql-type="varchar(50)" length="50" not-null="true"/>
