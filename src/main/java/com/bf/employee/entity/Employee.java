@@ -3,15 +3,14 @@ package com.bf.employee.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-@Builder
 @Entity
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class Employee {
     private int id;
     private Integer personId;

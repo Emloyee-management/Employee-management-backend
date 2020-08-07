@@ -4,6 +4,8 @@ package com.bf.employee.controller;
 import com.bf.employee.entity.VisaStatus;
 
 import com.bf.employee.service.serviceImpl.VisaStatusService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
