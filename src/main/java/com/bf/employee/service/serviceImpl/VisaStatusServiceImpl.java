@@ -17,4 +17,9 @@ public class VisaStatusServiceImpl implements VisaStatusService {
     public VisaStatus getVisaStatus(int employeeVisaStatusId) {
         return visaStatusDAO.getVisaInfo(employeeVisaStatusId);
     }
+
+    @Override
+    public Boolean updateVisaType(int employeeVisaStatusId, String visaType) {
+        return visaStatusDAO.updateVisaType(employeeVisaStatusId, visaType);
+    }
 }
