@@ -7,7 +7,6 @@ import com.bf.employee.entity.LoginResponse;
 import com.bf.employee.entity.User;
 import com.bf.employee.security.util.CookieUtil;
 import com.bf.employee.security.util.JwtUtil;
-import com.bf.employee.service.LoginService;
 
 import com.bf.employee.service.PersonService;
 import org.springframework.ui.Model;

@@ -3,7 +3,8 @@ package com.bf.employee.entity;
 import lombok.Builder;
 import lombok.Generated;
 import lombok.ToString;
-import org.hibernate.annotations.Generated;
+import lombok.experimental.Tolerate;
+//import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 import java.util.Objects;
