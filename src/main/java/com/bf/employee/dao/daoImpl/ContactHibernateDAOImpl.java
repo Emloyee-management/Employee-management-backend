@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public class ContactHibernateDAOImpl extends AbstractHibernateDAO implements ContactDAO {
 
     public ContactHibernateDAOImpl() {
-        setClazz(Employee.class);
+        setClazz(Contact.class);
     }
     /*
      * Override method from AddressDAO.
