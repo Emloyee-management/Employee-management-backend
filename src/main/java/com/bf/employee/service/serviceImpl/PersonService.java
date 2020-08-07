@@ -24,6 +24,8 @@ public class PersonService {
     private VisaStatusDAO visaStatusDAO;
     @Autowired
     private ContactDAO contactDAO;
+    @Autowired
+    private ApplicationWorkFlowDAO applicationWorkFlowDAO;
 
 
     @Transactional
@@ -40,12 +42,29 @@ public class PersonService {
             int vsId = visaStatusDAO.registerVisaStatus(visaStatus);
             employee.setPersonId(personId);
             employee.setVisaStatusId(vsId);
-            employeeDAO.registerEmployee(employee);
+            int employeeId = employeeDAO.registerEmployee(employee);
+            ApplicationWorkFlow appWorkFlow = buildAppWorkFlow(employeeId);
+            applicationWorkFlowDAO.registerApplicationWorkFlow(appWorkFlow);
             address.setPersonId(personId);
             addressDAO.registerAddress(address);
             return true;
         }
 
+    }
+
+    public ApplicationWorkFlow buildAppWorkFlow(int employeeId){
+        String pattern = "MM-dd-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
+
+        ApplicationWorkFlow appWorkFlow = ApplicationWorkFlow.builder()
+                .employeeId(employeeId)
+                .createdDate(date)
+                .modificationDate(date)
+                .status("reviewRequired")
+                .type("onboarding")
+                .build();
+        return appWorkFlow;
     }
 
     public boolean addReference(Person person, Address address, Contact contact){

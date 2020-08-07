@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class AddressHibernateDAOImpl extends AbstractHibernateDAO implements AddressDAO {
 
     public AddressHibernateDAOImpl() {
-        setClazz(Employee.class);
+        setClazz(Address.class);
     }
     /*
      * Override method from AddressDAO.
