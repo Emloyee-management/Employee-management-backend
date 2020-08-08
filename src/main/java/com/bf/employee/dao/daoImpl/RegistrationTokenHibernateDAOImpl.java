@@ -2,6 +2,7 @@ package com.bf.employee.dao.daoImpl;
 
 import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.RegistrationTokenDAO;
+import com.bf.employee.entity.Contact;
 import com.bf.employee.entity.RegistrationToken;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -37,5 +38,11 @@ public class RegistrationTokenHibernateDAOImpl extends AbstractHibernateDAO impl
         }else{
             return false;
         }
+    }
+
+    @Override
+    public int persistRegistrationToken(RegistrationToken registrationToken) {
+        getCurrentSession().persist(registrationToken);
+        return registrationToken.getId();
     }
 }

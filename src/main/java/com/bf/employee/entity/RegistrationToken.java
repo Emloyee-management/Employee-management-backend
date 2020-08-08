@@ -1,9 +1,12 @@
 package com.bf.employee.entity;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Builder
 public class RegistrationToken {
     private int id;
     private String token;
