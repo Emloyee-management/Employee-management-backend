@@ -1,5 +1,6 @@
 package com.bf.employee.dao;
 
+import com.bf.employee.entity.HRFacilityResponse;
 import com.bf.employee.entity.HRHouseDetailResponse;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.List;
  */
 public interface HRHouseManagementDao {
     List<HRHouseDetailResponse> viewAllHouses();
-    HRHouseDetailResponse viewOneHouseById();
-
+    HRFacilityResponse viewOneHouseById(Integer hid);
 
 }
