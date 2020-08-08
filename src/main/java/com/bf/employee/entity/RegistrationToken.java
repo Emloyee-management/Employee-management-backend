@@ -10,7 +10,7 @@ import java.util.Objects;
 public class RegistrationToken {
     private int id;
     private String token;
-    private int validDuration;
+    private String validDuration;
     private String email;
     private String createdBy;
 
@@ -37,11 +37,11 @@ public class RegistrationToken {
 
     @Basic
     @Column(name = "ValidDuration", nullable = false)
-    public int getValidDuration() {
+    public String getValidDuration() {
         return validDuration;
     }
 
-    public void setValidDuration(int validDuration) {
+    public void setValidDuration(String validDuration) {
         this.validDuration = validDuration;
     }
 

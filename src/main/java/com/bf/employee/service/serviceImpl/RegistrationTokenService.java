@@ -4,10 +4,14 @@ import com.bf.employee.dao.RegistrationTokenDAO;
 import com.bf.employee.entity.RegistrationToken;
 import com.bf.employee.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.Charset;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Random;
 
 /*
@@ -16,6 +20,8 @@ import java.util.Random;
 @Service
 public class RegistrationTokenService {
 
+    @Value("${registrationToken.validDuration}")
+    int regTokValidDuration;
     @Autowired
     private RegistrationTokenDAO registrationTokenDAO;
 
@@ -24,7 +30,16 @@ public class RegistrationTokenService {
     */
     @Transactional
     public boolean isRegTokExist(String registrationToken){
-        return registrationTokenDAO.isRegTokExists(registrationToken);
+        if(registrationTokenDAO.isRegTokExists(registrationToken) ){
+            if(registrationTokenDAO.isRegTokValid(registrationToken)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+
     }
 
     @Transactional
@@ -34,11 +49,14 @@ public class RegistrationTokenService {
             generatedString = generateRansomString();
         }
 
+
+        LocalDateTime validDuration = LocalDateTime.now().plusHours(regTokValidDuration);
+
         RegistrationToken regTok = RegistrationToken.builder()
                 .createdBy(userId)
                 .email(email)
                 .token(generatedString)
-                .validDuration(3)
+                .validDuration(validDuration.toString())
                 .build();
         registrationTokenDAO.persistRegistrationToken(regTok);
         return generatedString;

@@ -11,4 +11,5 @@ public interface RegistrationTokenDAO {
     * */
     boolean isRegTokExists(String regToken);
     int persistRegistrationToken(RegistrationToken registrationToken);
+    boolean isRegTokValid(String regToken);
 }
