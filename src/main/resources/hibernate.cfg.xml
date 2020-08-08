@@ -13,6 +13,7 @@
       <property name="connection.url">jdbc:mysql://34.86.200.102:3306</property>
       <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+      <property name="current_session_context_class">thread</property>
 
       <mapping resource="User.hbm.xml"/>
       <mapping class="com.bf.employee.entity.User"/>
@@ -22,7 +23,7 @@
       <mapping resource="UserRole.hbm.xml"/>
       <!-- DB schema will be updated if needed -->
       <mapping class="com.bf.employee.entity.RegistrationToken"/>
-    <property name="hibernate.hbm2ddl.auto">update</property>
+<!--    <property name="hibernate.hbm2ddl.auto">update</property>-->
 
       <mapping resource="User.hbm.xml"/>
       <mapping class="com.bf.employee.entity.User"/>

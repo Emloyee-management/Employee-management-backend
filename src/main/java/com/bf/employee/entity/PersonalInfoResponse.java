@@ -22,7 +22,7 @@ public class PersonalInfoResponse {
     private String employmentStartDate;
     private String employmentEndDate;
     private String title;
-
+    private String ssn;
     //change later
     private String emergencyContactFullname;
     private String emergencyContactPhone;
@@ -33,6 +33,19 @@ public class PersonalInfoResponse {
 
     public PersonalInfoResponse() {
 
+    }
+
+    public String getVisaEndDate() {
+        return visaEndDate;
+    }
+
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
     public PersonalInfoResponse(String firstName, String lastName, String avatar, String dob, String gender,

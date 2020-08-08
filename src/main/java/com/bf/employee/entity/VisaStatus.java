@@ -3,6 +3,7 @@ package com.bf.employee.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.ToString;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -20,6 +21,9 @@ public class VisaStatus {
     private String ModificationDate;
     private String CreateUser;
 
+    @Tolerate
+    public VisaStatus() {
+    }
 
     @Basic
     @Column(name = "VisaType")

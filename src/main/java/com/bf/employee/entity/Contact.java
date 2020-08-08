@@ -1,6 +1,7 @@
 package com.bf.employee.entity;
 
 import lombok.Builder;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,6 +15,10 @@ public class Contact {
     private String title;
     private Byte isEmergency;
     private Byte isLandLord;
+
+    @Tolerate
+    public Contact() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
