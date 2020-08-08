@@ -1,6 +1,6 @@
 package com.bf.employee.controller;
 
-import com.bf.employee.entity.HRemail;
+import com.bf.employee.entity.HREmailResponse;
 import com.bf.employee.entity.RegistrationToken;
 import com.bf.employee.service.serviceImpl.RegistrationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ public class HRHiring {
     RegistrationTokenService registrationTokenService;
 
     @RequestMapping(path = "/generateRegistrationToken", consumes="application/json")
-    public HRemail GenerateRegToken(@RequestBody Map<String, String> applicationForm){
+    public HREmailResponse GenerateRegToken(@RequestBody Map<String, String> applicationForm){
         String regTok = registrationTokenService.generateRegToken(applicationForm.get("email"),applicationForm.get("userId"));
         String msg = "Please use the provided Registration Token to create your account: " + regTok;
-        HRemail email = HRemail.builder().recipientEmail(applicationForm.get("email")).msg(msg).build();
+        HREmailResponse email = HREmailResponse.builder().recipientEmail(applicationForm.get("email")).msg(msg).build();
 
 
         return email;

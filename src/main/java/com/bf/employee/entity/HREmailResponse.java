@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class HRemail {
+public class HREmailResponse {
     String recipientEmail;
     String msg;
 
