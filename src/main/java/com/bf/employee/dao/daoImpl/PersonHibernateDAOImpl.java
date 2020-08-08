@@ -7,10 +7,12 @@ import com.bf.employee.entity.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
+@Transactional
 public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements PersonDAO {
 
     public PersonHibernateDAOImpl() {
@@ -100,6 +102,8 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
         personalInfoResponse.setCellPhone(personInfo.getCellphone());
         personalInfoResponse.setAlternatePhone(personInfo.getAlternatePhone());
         personalInfoResponse.setDob(personInfo.getDob());
+        personalInfoResponse.setSsn(personInfo.getSsn());
+//        personalInfoResponse.setVisaEndDate(personInfo.set);
 
         personalInfoResponse.setAvatar(employeeInfo.getAvatar());
         personalInfoResponse.setTitle(employeeInfo.getTitle());
@@ -113,7 +117,7 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
         personalInfoResponse.setCity(addressInfo.getCity());
         personalInfoResponse.setStateName(addressInfo.getStateName());
         personalInfoResponse.setZipCode(addressInfo.getZipcode());
-
+        personalInfoResponse.setGender(personInfo.getGender());
         personQuery.setParameter("person_id", contactInfo.getPersonId());
         addressQuery.setParameter("person_id", contactInfo.getPersonId());
 
