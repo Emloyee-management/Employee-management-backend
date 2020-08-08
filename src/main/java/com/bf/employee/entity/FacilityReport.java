@@ -2,6 +2,7 @@ package com.bf.employee.entity;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "FacilityReport", schema = "employee")
 public class FacilityReport {
@@ -11,6 +12,18 @@ public class FacilityReport {
     private String reportDate;
     private String description;
     private String status;
+
+    public FacilityReport(String title, int employeeId, String reportDate, String description, String status) {
+        this.title = title;
+        this.employeeId = employeeId;
+        this.reportDate = reportDate;
+        this.description = description;
+        this.status = status;
+    }
+
+    public FacilityReport() {
+
+    }
 
     @Id
     @Column(name = "id", nullable = false)
