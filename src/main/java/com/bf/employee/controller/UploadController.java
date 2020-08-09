@@ -1,6 +1,7 @@
 package com.bf.employee.controller;
 
 import com.bf.employee.service.FileService;
+import com.bf.employee.service.serviceImpl.DocumentService;
 import com.bf.employee.service.serviceImpl.VisaStatusService;
 
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,15 @@ public class UploadController {
     @Resource
     private FileService fileService;
     @Resource
+    private DocumentService documentService;
+    @Resource
     private VisaStatusService visaStatusService;
 
     @RequestMapping("/upload")
     void upload(@RequestParam("file") MultipartFile multipartFile, @RequestParam("id") Integer id, @RequestParam(value = "visaType", required = false) String visaType) throws IOException {
         fileService.uploadFile(multipartFile, id);
         visaStatusService.updateVisaType(id, visaType);
+        documentService.updateDocStatus(id, multipartFile.getOriginalFilename());
         response.sendRedirect("/download.html");
     }
 
