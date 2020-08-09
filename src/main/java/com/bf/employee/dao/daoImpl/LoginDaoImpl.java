@@ -2,6 +2,7 @@ package com.bf.employee.dao.daoImpl;
 
 import com.bf.employee.dao.LoginDao;
 import com.bf.employee.entity.*;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

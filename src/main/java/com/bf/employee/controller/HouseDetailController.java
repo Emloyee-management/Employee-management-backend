@@ -2,6 +2,7 @@ package com.bf.employee.controller;
 
 import com.bf.employee.entity.*;
 import com.bf.employee.service.serviceImpl.RegistrationTokenService;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -59,7 +60,13 @@ public class HouseDetailController {
         String status = request.getParameter("status");
         FacilityReport report = new FacilityReport(title, Integer.parseInt(empId),
                 reportDate, description, status);
-        sf.getCurrentSession().save(report);
+        try {
+            sf.getCurrentSession().save(report);
+        }
+        catch (HibernateException e) {
+            sf.openSession().save(report);
+        }
+//        sf.getCurrentSession().save(report);
         return true;
     }
 
@@ -77,7 +84,13 @@ public class HouseDetailController {
         newReport.setEmployeeId(Integer.parseInt(empId));
         newReport.setReportDate(reportDate);
         newReport.setStatus(status);
-        sf.getCurrentSession().update(newReport);
+        try {
+            sf.getCurrentSession().update(newReport);
+//            session = sf.getCurrentSession();
+        } catch (HibernateException e) {
+            sf.openSession().update(newReport);
+        }
+//        sf.getCurrentSession().update(newReport);
     }
 
     @Transactional
