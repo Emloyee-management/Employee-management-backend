@@ -51,8 +51,9 @@ public class HouseDetailController {
         return housingService.listFacilityReport(h);
     }
 
+    @Transactional
     @RequestMapping(value = "/facility/list", method = RequestMethod.POST)
-    public boolean addReport() {
+    public void addReport() {
 
         String title = request.getParameter("title");
         String empId = request.getParameter("employeeID");
@@ -61,14 +62,10 @@ public class HouseDetailController {
         String status = request.getParameter("status");
         FacilityReport report = new FacilityReport(title, Integer.parseInt(empId),
                 reportDate, description, status);
-        try {
-            sf.getCurrentSession().save(report);
-        } catch (HibernateException e) {
-            sf.openSession().save(report);
-        }
-        return true;
+        sf.getCurrentSession().save(report);
     }
 
+    @Transactional
     @RequestMapping(value = "/facility/list", method = RequestMethod.PUT)
     public void updateReport() {
         String id = request.getParameter("id");
