@@ -8,6 +8,7 @@ import com.bf.employee.entity.ApplicationWorkFlow;
 import com.bf.employee.entity.Employee;
 import javafx.application.Application;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -42,7 +43,15 @@ public class ApplicationWorkFlowHibernateDAOImpl extends AbstractHibernateDAO im
     public void updateStatus(String type, int employeeId, String changedStatus, String now) {
         String q = "UPDATE ApplicationWorkFlow wf " +
                 "SET wf.status = :changedStatus, wf.modificationDate = :now where wf.employeeId= :employeeId and wf.type = :type";
-        Query query = getCurrentSession().createQuery(q);
+        Session session;
+        try {
+            session = sf.getCurrentSession();
+        }
+        catch (HibernateException e) {
+            session = sf.openSession();
+        }
+
+        Query query = session.createQuery(q);
         query.setParameter("changedStatus", changedStatus);
         query.setParameter("employeeId", employeeId);
         query.setParameter("type", type);
