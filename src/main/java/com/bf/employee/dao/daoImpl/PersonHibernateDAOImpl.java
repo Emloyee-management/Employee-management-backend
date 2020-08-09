@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -136,4 +137,89 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
 //        System.out.println(employeeInfo.getTitle());
         return personalInfoResponse;
     }
+
+
+    public List<HRPersonalInfoResponse> getPersonList(){
+        List<HRPersonalInfoResponse> pInfoList = new ArrayList<>();
+
+        String personQ = "SELECT p FROM Person p";
+        String employeeQ = "SELECT e FROM Employee e WHERE personId = :person_id";
+        String addressQ = "SELECT a FROM Address a WHERE personId = :person_id";
+        String userQ = "SELECT u FROM User u WHERE personId = :person_id";
+        String visaStatusQ = "SELECT v FROM VisaStatus v WHERE CreateUser = :username";
+
+       // String contactQ = "SELECT c FROM Contact c WHERE personId = :person_id AND isEmergency = 1";
+
+
+        Query personQuery = getCurrentSession().createQuery(personQ);
+        Query userQuery = getCurrentSession().createQuery(userQ);
+
+
+        for(int i=0; i<personQuery.list().size(); i++){
+            Person p = (Person) personQuery.list().get(i);
+            int personId = p.getId();
+            userQuery.setParameter("person_id", personId);
+            User u = (User) userQuery.list().get(0);
+            String username = u.getUserName();
+
+            Query employeeQuery = getCurrentSession().createQuery(employeeQ);
+            Query addressQuery = getCurrentSession().createQuery(addressQ);
+            Query visaStatusQuery = getCurrentSession().createQuery(visaStatusQ);
+            //Query contactQuery = getCurrentSession().createQuery(contactQ);
+
+            employeeQuery.setParameter("person_id", personId);
+            addressQuery.setParameter("person_id", personId);
+            visaStatusQuery.setParameter("username",username);
+            //contactQuery.setParameter("person_id", personId);
+
+            Employee e = (Employee) employeeQuery.list().get(0);
+            Address a = (Address) addressQuery.list().get(0);
+            VisaStatus v = (VisaStatus) visaStatusQuery.list().get(0);
+            //Contact c = (Contact) contactQuery.list().get(0);
+
+            HRPersonalInfoResponse pr = HRPersonalInfoResponse.builder()
+                    //person
+                    .firstName(p.getFirstName())
+                    .lastName(p.getLastName())
+                    .middleName(p.getMiddleName())
+                    .email(p.getEmail())
+                    .cellphone(p.getCellphone())
+                    .alternatePhone(p.getAlternatePhone())
+                    .gender(p.getGender())
+                    .ssn(p.getSsn())
+                    .dob(p.getDob())
+                    //employee
+                    .avatar(e.getAvatar())
+                    .employmentStartDate(e.getStartDate())
+                    .employmentEndDate(e.getEndDate())
+                    .visaStartDate(e.getVisaStartDate())
+                    .visaEndDate(e.getVisaEndDate())
+                    .car(e.getCar())
+                    .driverLicense(e.getDriverLicence())
+                    .driverLicense_expirationDate(e.getDriverExpirationDate())
+                    //address
+                    .addressLine1(a.getAddressLine1())
+                    .addressLine2(a.getAddressLine2())
+                    .city(a.getCity())
+                    .zipCode(a.getZipcode())
+                    .stateName(a.getStateName())
+                    .stateAbbr(a.getStateAbbr())
+                    //visa-status
+                    .visaType(v.getVisaType())
+                    .build();
+
+
+
+
+            pInfoList.add(pr);
+
+
+
+        }
+
+        return pInfoList;
+
+    }
+
+
 }
