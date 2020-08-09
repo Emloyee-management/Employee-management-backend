@@ -51,7 +51,7 @@ public class HouseDetailController {
     }
 
     @RequestMapping(value = "/facility/list", method = RequestMethod.POST)
-    public void addReport() {
+    public boolean addReport() {
         String title = request.getParameter("title");
         String empId = request.getParameter("employeeID");
         String reportDate = request.getParameter("reportDate");
@@ -60,6 +60,7 @@ public class HouseDetailController {
         FacilityReport report = new FacilityReport(title, Integer.parseInt(empId),
                 reportDate, description, status);
         sf.getCurrentSession().save(report);
+        return true;
     }
 
     @RequestMapping(value = "/facility/list", method = RequestMethod.PUT)
