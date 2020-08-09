@@ -2,6 +2,8 @@ package com.bf.employee.dao;
 
 import com.bf.employee.entity.VisaStatus;
 
+import java.util.List;
+
 /*
  * DAO interface for VisaStatus
  */
@@ -17,5 +19,7 @@ public interface VisaStatusDAO {
     VisaStatus getVisaInfo(int employeeVisaStatusId);
 
     Boolean updateVisaType(int employeeVisaStatusId, String visaType);
+
+    List<VisaStatus> getAll();
 }
 

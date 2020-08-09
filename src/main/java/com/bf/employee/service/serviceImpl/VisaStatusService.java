@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class VisaStatusService {
@@ -42,5 +43,10 @@ public class VisaStatusService {
 
     public Boolean updateVisaType(int employeeVisaStatusId, String visaType) {
         return visaStatusDAO.updateVisaType(employeeVisaStatusId, visaType);
+    }
+
+    public List<VisaStatus> getAllVisa()
+    {
+        return visaStatusDAO.getAll();
     }
 }

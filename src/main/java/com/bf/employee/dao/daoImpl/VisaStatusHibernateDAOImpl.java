@@ -9,6 +9,8 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements VisaStatusDAO {
@@ -58,5 +60,12 @@ public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements 
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<VisaStatus> getAll() {
+        String hql = "FROM VisaStatus";
+        List<VisaStatus> list = getCurrentSession().createQuery(hql).list();
+        return list;
     }
 }
