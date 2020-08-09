@@ -35,6 +35,7 @@ public class HRPersonalInfoResponse {
     private String employmentEndDate;
     private String title;
     private String ssn;
+    private String appWorkFlowStatus;
     //change later
     private String emergency_firstname;
     private String emergency_lastname;

@@ -146,7 +146,8 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
         String employeeQ = "SELECT e FROM Employee e WHERE personId = :person_id";
         String addressQ = "SELECT a FROM Address a WHERE personId = :person_id";
         String userQ = "SELECT u FROM User u WHERE personId = :person_id";
-        String visaStatusQ = "SELECT v FROM VisaStatus v WHERE CreateUser = :username";
+        String visaStatusQ = "SELECT v FROM VisaStatus v WHERE createUser = :username";
+        String apppWorkFlowQ = "SELECT wf FROM ApplicationWorkFlow  wf WHERE employeeId = :employee_id";
 
        // String contactQ = "SELECT c FROM Contact c WHERE personId = :person_id AND isEmergency = 1";
 
@@ -165,16 +166,19 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
             Query employeeQuery = getCurrentSession().createQuery(employeeQ);
             Query addressQuery = getCurrentSession().createQuery(addressQ);
             Query visaStatusQuery = getCurrentSession().createQuery(visaStatusQ);
+            //Query appWorkFlowQuery = getCurrentSession().createQuery(apppWorkFlowQ);//below
             //Query contactQuery = getCurrentSession().createQuery(contactQ);
 
             employeeQuery.setParameter("person_id", personId);
             addressQuery.setParameter("person_id", personId);
             visaStatusQuery.setParameter("username",username);
+            //appWorkFlowQuery.setParameter("person_id", personId);//below
             //contactQuery.setParameter("person_id", personId);
 
             Employee e = (Employee) employeeQuery.list().get(0);
             Address a = (Address) addressQuery.list().get(0);
             VisaStatus v = (VisaStatus) visaStatusQuery.list().get(0);
+            //ApplicationWorkFlow wf = (ApplicationWorkFlow)appWorkFlowQuery.list().get(0);//below
             //Contact c = (Contact) contactQuery.list().get(0);
 
             HRPersonalInfoResponse pr = HRPersonalInfoResponse.builder()
@@ -206,11 +210,15 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
                     .stateAbbr(a.getStateAbbr())
                     //visa-status
                     .visaType(v.getVisaType())
+                    //applicationWorkFlow
                     .build();
 
-
-
-
+            int employeeId = e.getId();
+            Query appWorkFlowQuery = getCurrentSession().createQuery(apppWorkFlowQ);
+            appWorkFlowQuery.setParameter("employee_id", employeeId);
+            ApplicationWorkFlow wf = (ApplicationWorkFlow) appWorkFlowQuery.list().get(0);
+            pr.setAppWorkFlowStatus(wf.getStatus());
+            
             pInfoList.add(pr);
 
 

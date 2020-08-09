@@ -1,6 +1,7 @@
 package com.bf.employee.entity;
 
 import lombok.Builder;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,6 +15,10 @@ public class ApplicationWorkFlow {
     private String status;
     private String comments;
     private String type;
+
+    @Tolerate
+    public ApplicationWorkFlow() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
