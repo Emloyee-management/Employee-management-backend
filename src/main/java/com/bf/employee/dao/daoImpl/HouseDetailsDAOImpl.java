@@ -57,8 +57,19 @@ public class HouseDetailsDAOImpl extends AbstractHibernateDAO implements Housing
         String hql = "select p.firstName, p.middleName, p.lastName, p.cellphone from House h, Person p, Employee e where e.houseId = h.id\n" +
                 "and p.id = e.personId and h.id = :hid";
         List<Object> list = new ArrayList<>();
+        List<PersonResponse> perList = new ArrayList<>();
         list = sf.getCurrentSession().createQuery(hql).setParameter("hid", h.getId()).list();
-        res.setEmployeeList(list);
+        for(int i = 0; i < list.size(); i++)
+        {
+            Object[] temp = (Object[]) list.get(i);
+            PersonResponse p = new PersonResponse();
+            p.setFirstName(temp[0].toString());
+            p.setMiddleName(temp[1].toString());
+            p.setLastName(temp[2].toString());
+            p.setCellphone(temp[3].toString());
+            perList.add(p);
+        }
+        res.setEmployeeList(perList);
         return res;
     }
 
