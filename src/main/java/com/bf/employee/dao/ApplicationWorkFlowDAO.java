@@ -10,5 +10,6 @@ public interface ApplicationWorkFlowDAO {
     * Register ApplicationWorkFlow to DB
     */
     int registerApplicationWorkFlow(ApplicationWorkFlow applicationWorkFlow);
+    void updateStatus(String type, int employeeId, String changedStatus, String now);
 
 }
