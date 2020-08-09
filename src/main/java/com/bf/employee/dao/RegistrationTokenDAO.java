@@ -10,4 +10,6 @@ public interface RegistrationTokenDAO {
     * Check if the RegistrationToken exists in the DB
     * */
     boolean isRegTokExists(String regToken);
+    int persistRegistrationToken(RegistrationToken registrationToken);
+    boolean isRegTokValid(String regToken);
 }

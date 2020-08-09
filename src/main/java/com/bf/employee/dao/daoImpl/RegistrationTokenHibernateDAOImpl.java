@@ -2,11 +2,14 @@ package com.bf.employee.dao.daoImpl;
 
 import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.RegistrationTokenDAO;
+import com.bf.employee.entity.Contact;
 import com.bf.employee.entity.RegistrationToken;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
 
 @Repository
 public class RegistrationTokenHibernateDAOImpl extends AbstractHibernateDAO implements RegistrationTokenDAO {
@@ -37,5 +40,22 @@ public class RegistrationTokenHibernateDAOImpl extends AbstractHibernateDAO impl
         }else{
             return false;
         }
+    }
+    public boolean isRegTokValid(String regToken){
+        Query query = getCurrentSession().
+                createQuery("select validDuration from RegistrationToken t where t.token = :regToken");
+        query.setParameter("regToken", regToken);
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime validDuration = LocalDateTime.parse(query.getResultList().get(0).toString());
+
+        return (now.isBefore(validDuration));
+
+    }
+
+    @Override
+    public int persistRegistrationToken(RegistrationToken registrationToken) {
+        getCurrentSession().persist(registrationToken);
+        return registrationToken.getId();
     }
 }

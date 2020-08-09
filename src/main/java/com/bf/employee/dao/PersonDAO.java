@@ -1,7 +1,10 @@
 package com.bf.employee.dao;
 
+import com.bf.employee.entity.HRPersonalInfoResponse;
 import com.bf.employee.entity.Person;
 import com.bf.employee.entity.PersonalInfoResponse;
+
+import java.util.List;
 
 /*
 * DAO interface for Person
@@ -22,5 +25,6 @@ public interface PersonDAO {
 
     public PersonalInfoResponse getPersonalInfo(Integer personId);
 
+    List<HRPersonalInfoResponse> getPersonList();
 }
 
