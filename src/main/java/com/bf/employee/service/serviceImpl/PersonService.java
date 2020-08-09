@@ -35,7 +35,10 @@ public class PersonService {
         int personId = personDAO.updatePerson(person);
 
         //visaStatus
-        int vsId = visaStatusDAO.registerVisaStatus(visaStatus);
+        visaStatus.setId(visaStatusDAO.findByUserName(visaStatus.getCreateUser()));
+        visaStatus.setModificationDate(now());
+        visaStatusDAO.updateVisaType(visaStatus.getId(),visaStatus.getVisaType());
+        int vsId = visaStatus.getId();
 
         //employee
         employee.setPersonId(personId);
@@ -47,8 +50,10 @@ public class PersonService {
         applicationWorkFlowDAO.updateStatus("onboarding", employeeId, "Pending", now());
 
         //address
+        int addressId = addressDAO.getAddressIdByPersonId(personId);
         address.setPersonId(personId);
-        addressDAO.registerAddress(address);
+        address.setId(addressId);
+        addressDAO.updateAddress(address);
         return true;
 
 
@@ -84,16 +89,16 @@ public class PersonService {
         */
         if(personDAO.isPersonExist(person)){
             //update contact
-            int personId = personDAO.findByName(person.getFirstName(),person.getLastName(),person.getEmail());
-            contact.setPersonId(personId);
-            contactDAO.registerContact(contact);
+//            int personId = personDAO.findByName(person.getFirstName(),person.getLastName(),person.getEmail());
+//            contact.setPersonId(personId);
+//            contactDAO.registerContact(contact);
             return false;
         }else{
-            int personId = personDAO.registerPerson(person);
-            address.setPersonId(personId);
-            addressDAO.registerAddress(address);
-            contact.setPersonId(personId);
-            contactDAO.registerContact(contact);
+//            int personId = personDAO.registerPerson(person);
+//            address.setPersonId(personId);
+//            addressDAO.registerAddress(address);
+//            contact.setPersonId(personId);
+//            contactDAO.registerContact(contact);
             return true;
         }
     }
@@ -106,14 +111,14 @@ public class PersonService {
          */
         if(personDAO.isPersonExist(person)){
             //update contact
-            int personId = personDAO.findByName(person.getFirstName(),person.getLastName(),person.getEmail());
-            contact.setPersonId(personId);
-            contactDAO.registerContact(contact);
+//            int personId = personDAO.findByName(person.getFirstName(),person.getLastName(),person.getEmail());
+//            contact.setPersonId(personId);
+//            contactDAO.registerContact(contact);
             return false;
         }else{
-            int personId = personDAO.registerPerson(person);
-            contact.setPersonId(personId);
-            contactDAO.registerContact(contact);
+//            int personId = personDAO.registerPerson(person);
+//            contact.setPersonId(personId);
+//            contactDAO.registerContact(contact);
             return true;
         }
     }

@@ -6,6 +6,7 @@ import com.bf.employee.entity.Address;
 import com.bf.employee.entity.Employee;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -33,6 +34,21 @@ public class AddressHibernateDAOImpl extends AbstractHibernateDAO implements Add
         return address.getId();
     }
 
+    @Override
+    public int getAddressIdByPersonId(int personId) {
+        String addressQ = "SELECT a FROM Address a WHERE personId = :person_id";
+        Query addressQuery = getCurrentSession().createQuery(addressQ);
+        addressQuery.setParameter("person_id", personId);
+        Address a = (Address) addressQuery.list().get(0);
+        return a.getId();
+    }
+
+    @Override
+    public int updateAddress(Address address) {
+        getCurrentSession().clear();
+        getCurrentSession().update(address);
+        return address.getId();
+    }
 
 
 }

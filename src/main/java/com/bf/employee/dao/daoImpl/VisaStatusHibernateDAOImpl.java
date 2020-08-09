@@ -3,17 +3,22 @@ package com.bf.employee.dao.daoImpl;
 import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.VisaStatusDAO;
 import com.bf.employee.entity.VisaStatus;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Repository
 @Transactional
 public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements VisaStatusDAO {
+
+    @Resource
+    private SessionFactory sf;
 
     public VisaStatusHibernateDAOImpl() {
         setClazz(VisaStatus.class);
@@ -34,7 +39,6 @@ public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements 
                 createQuery("select vs.id from VisaStatus vs " +
                         "where vs.createUser =:userName");
         query.setParameter("userName", userName);
-        System.out.println("visa: "+query.getResultList().toString());
         return (int)query.getResultList().get(0);
     }
 
@@ -67,5 +71,17 @@ public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements 
         String hql = "FROM VisaStatus";
         List<VisaStatus> list = getCurrentSession().createQuery(hql).list();
         return list;
+    }
+
+    @Override
+    public int updateVisaStatus(VisaStatus visaStatus) {
+        try {
+            getCurrentSession().update(visaStatus);
+        }
+        catch (HibernateException e) {
+            sf.openSession().update(visaStatus);
+        }
+
+        return visaStatus.getId();
     }
 }

@@ -1,9 +1,6 @@
 package com.bf.employee.service.serviceImpl;
 
-import com.bf.employee.dao.ApplicationWorkFlowDAO;
-import com.bf.employee.dao.EmployeeDAO;
-import com.bf.employee.dao.PersonDAO;
-import com.bf.employee.dao.UserDAO;
+import com.bf.employee.dao.*;
 import com.bf.employee.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +19,10 @@ public class RegistrationService {
     private EmployeeDAO employeeDAO;
     @Autowired
     private ApplicationWorkFlowDAO applicationWorkFlowDAO;
+    @Autowired
+    private VisaStatusDAO visaStatusDAO;
+    @Autowired
+    private AddressDAO addressDAO;
 
 
     @Transactional
@@ -33,7 +34,7 @@ public class RegistrationService {
             //person
             Person p = new Person();
             personDAO.registerPerson(p);
-            //usesr
+            //user
             user.setPersonId(p.getId());
             user.setCreateDate(now());
             user.setModificationDate(now());
@@ -49,6 +50,15 @@ public class RegistrationService {
             wf.setCreatedDate(now());
             wf.setType("onboarding");
             applicationWorkFlowDAO.registerApplicationWorkFlow(wf);
+            //visaStatus
+            VisaStatus vs = new VisaStatus();
+            vs.setCreateUser(user.getUserName());
+            vs.setModificationDate(now());
+            visaStatusDAO.registerVisaStatus(vs);
+            //address
+            Address ad = new Address();
+            ad.setPersonId(p.getId());
+            addressDAO.registerAddress(ad);
 
 //            RegistrationResponse regResponse = RegistrationResponse.builder()
 //                                                                .userId(userId)

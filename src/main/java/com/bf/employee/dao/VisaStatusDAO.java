@@ -21,5 +21,7 @@ public interface VisaStatusDAO {
     Boolean updateVisaType(int employeeVisaStatusId, String visaType);
 
     List<VisaStatus> getAll();
+
+    int updateVisaStatus(VisaStatus visaStatus);
 }
 
