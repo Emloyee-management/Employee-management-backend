@@ -30,26 +30,35 @@ public class PersonService {
 
     @Transactional
     public boolean onBoardEmployee(Person person, Employee employee, Address address, VisaStatus visaStatus){
-        /*
-        * First, check if the Person exist in DB or not.
-        * If the person exist, return null Person object.
-        * If the person does not exist, insert it into Person DB, VisaStatus DB, Address DB, and Employee DB.
-        */
-        if(personDAO.isPersonExist(person)){ // the person already EXISTS in the DB
-            return false;
-        }else{ //the person does NOT EXIST In DB
-            int personId = personDAO.registerPerson(person);
-            int vsId = visaStatusDAO.registerVisaStatus(visaStatus);
-            employee.setPersonId(personId);
-            employee.setVisaStatusId(vsId);
-            int employeeId = employeeDAO.registerEmployee(employee);
-            ApplicationWorkFlow appWorkFlow = buildAppWorkFlow(employeeId);
-            applicationWorkFlowDAO.registerApplicationWorkFlow(appWorkFlow);
-            address.setPersonId(personId);
-            addressDAO.registerAddress(address);
-            return true;
-        }
 
+        //person
+        int personId = personDAO.updatePerson(person);
+
+        //visaStatus
+        int vsId = visaStatusDAO.registerVisaStatus(visaStatus);
+
+        //employee
+        employee.setPersonId(personId);
+        employee.setVisaStatusId(vsId);
+        employee.setId(employeeDAO.getEmployeeIdByPersonId(personId));
+        int employeeId = employeeDAO.updateEmployee(employee);
+
+        //applicationWorkFlow
+        applicationWorkFlowDAO.updateStatus("onboarding", employeeId, "Pending", now());
+
+        //address
+        address.setPersonId(personId);
+        addressDAO.registerAddress(address);
+        return true;
+
+
+    }
+
+    public String now(){
+        String pattern = "MM-dd-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String now = simpleDateFormat.format(new Date());
+        return now;
     }
 
     public ApplicationWorkFlow buildAppWorkFlow(int employeeId){
@@ -61,7 +70,7 @@ public class PersonService {
                 .employeeId(employeeId)
                 .createdDate(date)
                 .modificationDate(date)
-                .status("reviewRequired")
+                .status("pending")
                 .type("onboarding")
                 .build();
         return appWorkFlow;

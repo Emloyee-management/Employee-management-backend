@@ -41,7 +41,7 @@ public class ApplicationForm {
     /*
      * Controller method for parsing HTTP request and create Person, Employee objects, and save them to the DB.
      */
-    @RequestMapping(path = "/applicationForm", consumes = "application/json", method = RequestMethod.POST)
+    @RequestMapping(path = "/applicationForm", consumes = "application/json" /*, method = RequestMethod.POST*/)
     @Transactional
     public void parseApplicationForm(@RequestBody Map<String, String> applicationForm) throws ParseException {
         System.out.println("yoyo");
@@ -51,6 +51,7 @@ public class ApplicationForm {
          * Create Person, Employee, Address, and VisaStatus and start Onboarding process.
          */
         Person person1 = Person.builder()
+                .id(Integer.parseInt(applicationForm.get("personId")))
                 .firstName(applicationForm.get("firstName"))
                 .lastName(applicationForm.get("lastName"))
                 .middleName(applicationForm.get("middleName"))
@@ -92,6 +93,7 @@ public class ApplicationForm {
 
         boolean isOnBoard = personService.onBoardEmployee(person1, employee1, address1, visaStatus1);
         System.out.println("isOnBoard: " + isOnBoard);
+        System.out.println(person1.toString());
 
         /*
          * Create Reference : Person, Address, Contact
