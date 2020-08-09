@@ -4,6 +4,7 @@ import com.bf.employee.dao.LoginDao;
 import com.bf.employee.entity.LoginResponse;
 import com.bf.employee.entity.User;
 import com.bf.employee.entity.UserRole;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -28,7 +29,13 @@ public class LoginDaoImpl implements LoginDao {
 
     @Override
     public String findPasswordByUsername(String username) {
-        Session session = sf.getCurrentSession();
+        Session session;
+        try {
+            session = sf.getCurrentSession();
+        }
+        catch (HibernateException e) {
+            session = sf.openSession();
+        }
         String hql = "select u.password from User u where u.userName = :name";
         Query query = session.createQuery(hql, String.class)
                 .setParameter("name", username);
@@ -42,7 +49,13 @@ public class LoginDaoImpl implements LoginDao {
 
     @Override
     public Object findUserByUsername(String username) {
-        Session session = sf.getCurrentSession();
+        Session session;
+        try {
+             session = sf.getCurrentSession();
+        }
+        catch (HibernateException e) {
+            session = sf.openSession();
+        }
         String hql = "select u, ur.roleId from User u, UserRole ur " +
                 "where u.personId = ur.userId " +
                 "and u.userName = :name";

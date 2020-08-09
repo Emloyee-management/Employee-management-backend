@@ -4,6 +4,7 @@ package com.bf.employee.dao.daoImpl;
 import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.PersonDAO;
 import com.bf.employee.entity.*;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -67,8 +68,13 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
     @Override
     public PersonalInfoResponse getPersonalInfo(Integer personId) {
         PersonalInfoResponse personalInfoResponse = new PersonalInfoResponse();
-
-        Session session = getCurrentSession();
+        Session session;
+        try {
+            session = getCurrentSession();
+        }
+        catch (HibernateException e) {
+            session = sessionFactory.openSession();
+        }
         String employeeQ = "SELECT e FROM Employee e WHERE personId = :person_id";
         String personQ = "SELECT p FROM Person p WHERE id = :person_id";
         String addressQ = "SELECT a FROM Address a WHERE personId = :person_id";

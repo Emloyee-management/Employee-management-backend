@@ -22,6 +22,7 @@ import java.io.IOException;
  */
 
 @Repository
+//@Transactional
 public class FileOperationImpl implements FileOperationDao {
     TrimSpace ts = new TrimSpace();//replace space in the file name
 

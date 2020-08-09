@@ -4,7 +4,11 @@ import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.AddressDAO;
 import com.bf.employee.entity.Address;
 import com.bf.employee.entity.Employee;
+import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
 
 @Repository
 public class AddressHibernateDAOImpl extends AbstractHibernateDAO implements AddressDAO {
@@ -16,9 +20,16 @@ public class AddressHibernateDAOImpl extends AbstractHibernateDAO implements Add
      * Override method from AddressDAO.
      * Register Address to the DB
      */
+    @Resource
+    private SessionFactory sf;
     @Override
     public int registerAddress(Address address) {
-        getCurrentSession().persist(address);
+        try {
+            getCurrentSession().persist(address);
+        }
+        catch (HibernateException e) {
+            sf.openSession().persist(address);
+        }
         return address.getId();
     }
 

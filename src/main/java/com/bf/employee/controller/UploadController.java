@@ -32,7 +32,7 @@ public class UploadController {
     private VisaStatusService visaStatusService;
 
     @RequestMapping("/upload")
-    void upload(@RequestParam("file") MultipartFile multipartFile, @RequestParam("id") Integer id, @RequestParam("visaType") String visaType) throws IOException {
+    void upload(@RequestParam("file") MultipartFile multipartFile, @RequestParam("id") Integer id, @RequestParam(value = "visaType", required = false) String visaType) throws IOException {
         fileService.uploadFile(multipartFile, id);
         visaStatusService.updateVisaType(id, visaType);
         response.sendRedirect("/download.html");

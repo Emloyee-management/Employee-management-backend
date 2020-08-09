@@ -4,6 +4,7 @@ import com.bf.employee.dao.HRHouseManagementDao;
 import com.bf.employee.dao.HousingDetailsDAO;
 import com.bf.employee.entity.*;
 import com.bf.employee.service.serviceImpl.HousingDetailService;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -28,9 +29,18 @@ public class HRHouseManagementDaoImpl implements HRHouseManagementDao{
     @Resource
     private HousingDetailsDAO dao;
 
+    @Resource
+    public HousingDetailsDAO houseDAO;
+
     @Override
     public List<HRHouseDetailResponse> viewAllHouses() {
-        Session session = sf.getCurrentSession();
+        Session session;
+        try {
+             session = sf.getCurrentSession();
+        }
+        catch (HibernateException e) {
+            session = sf.openSession();
+        }
         String hql = "select h.address, h.numberOfPerson, h.address, h.id, p.firstName, p.email, p.cellphone from House h, Person p, Employee e " +
                 "where p.id = e.personId and e.houseId = h.id";
         List<Object> list = session.createQuery(hql).list();
@@ -62,7 +72,13 @@ public class HRHouseManagementDaoImpl implements HRHouseManagementDao{
                 "       (select count(*) from Facility fa where fa.type = 'mattress') as numOfMattress\n" +
                 "from Facility f, House h\n" +
                 "where f.houseId = h.id and h.id = :hid and f.type = 'chair'";
-        Session session = sf.getCurrentSession();
+        Session session;
+        try {
+            session = sf.getCurrentSession();
+        }
+        catch (HibernateException e) {
+            session = sf.openSession();
+        }
         List<Object[]> list = session.createQuery(hql).setParameter("hid", hid).list();
         res.setNumOfBeds(Math.toIntExact((Long) list.get(0)[1]));
         res.setNumOfChairs(Math.toIntExact((Long) list.get(0)[0]));
@@ -79,6 +95,10 @@ public class HRHouseManagementDaoImpl implements HRHouseManagementDao{
         facilityReport.setStatus(reportResponse.getStatus());
         facilityReports.add(facilityReport);
         res.setFacilityReports(facilityReports);
+
+        hql = "select e from Employee e where houseId = :hid";
+        List<Employee> employeeList = session.createQuery(hql).setParameter("hid", hid).list();
+        res.setEmployees(employeeList);
         return res;
     }
 }

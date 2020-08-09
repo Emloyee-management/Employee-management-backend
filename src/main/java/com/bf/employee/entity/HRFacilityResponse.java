@@ -13,6 +13,15 @@ public class HRFacilityResponse {
     private Integer numOfTables;
     private Integer numOfChairs;
     List<FacilityReport> facilityReports;
+    List<Employee> employees;
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 
     public Integer getNumOfBeds() {
         return numOfBeds;

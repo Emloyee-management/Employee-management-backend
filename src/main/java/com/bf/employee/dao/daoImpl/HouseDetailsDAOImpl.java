@@ -3,6 +3,7 @@ package com.bf.employee.dao.daoImpl;
 import com.bf.employee.dao.AbstractHibernateDAO;
 import com.bf.employee.dao.HousingDetailsDAO;
 import com.bf.employee.entity.*;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,13 @@ public class HouseDetailsDAOImpl extends AbstractHibernateDAO implements Housing
     public House findHouseIDFromPersonID(int personID){
         House res = new House();
         String hql = "FROM Employee";
-        List<Employee>empList = getCurrentSession().createQuery(hql).list();
+        List<Employee> empList = new ArrayList<>();
+        try {
+             empList = getCurrentSession().createQuery(hql).list();
+        }
+        catch (HibernateException e) {
+            empList = sf.openSession().createQuery(hql).list();
+        }
         String hql2 = "FROM House";
         List<House>houseList = getCurrentSession().createQuery(hql2).list();
         Employee em = new Employee();

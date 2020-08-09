@@ -28,6 +28,7 @@ public class UserHibernateDAOImpl extends AbstractHibernateDAO implements UserDA
     */
     @Override
     public boolean isUserExist(User user) {
+
         Query query = getCurrentSession().
                 createQuery("select 1 from User u where u.userName = :userName");
         query.setParameter("userName", user.getUserName());
