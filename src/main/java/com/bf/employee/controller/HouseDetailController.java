@@ -53,6 +53,7 @@ public class HouseDetailController {
 
     @RequestMapping(value = "/facility/list", method = RequestMethod.POST)
     public boolean addReport() {
+
         String title = request.getParameter("title");
         String empId = request.getParameter("employeeID");
         String reportDate = request.getParameter("reportDate");
@@ -62,11 +63,9 @@ public class HouseDetailController {
                 reportDate, description, status);
         try {
             sf.getCurrentSession().save(report);
-        }
-        catch (HibernateException e) {
+        } catch (HibernateException e) {
             sf.openSession().save(report);
         }
-//        sf.getCurrentSession().save(report);
         return true;
     }
 
@@ -86,11 +85,11 @@ public class HouseDetailController {
         newReport.setStatus(status);
         try {
             sf.getCurrentSession().update(newReport);
-//            session = sf.getCurrentSession();
+
         } catch (HibernateException e) {
             sf.openSession().update(newReport);
         }
-//        sf.getCurrentSession().update(newReport);
+
     }
 
     @Transactional
@@ -115,7 +114,7 @@ public class HouseDetailController {
         String createdDate = request.getParameter("createdDate");
         String lastModified = request.getParameter("lastModified");
         FacilityReportDetail comment = (FacilityReportDetail) sf.getCurrentSession().get(FacilityReportDetail.class, Integer.parseInt(cId));
-        System.out.println(comment.getComments());
+
         comment.setEmployeeId(Integer.parseInt(eid));
         comment.setComments(cmt);
         comment.setCreatedDate(createdDate);

@@ -23,7 +23,7 @@ public class VisaStatusService {
     }
 
     public int isVisaStatusActive(String visaEndDate) throws ParseException {
-        String pattern = "MM-dd-yyyy";
+        String pattern = "MM/dd/yyyy";
         if (new SimpleDateFormat(pattern).parse(visaEndDate).before(new Date())) {
             return 0; //visa is not active
         } else {
