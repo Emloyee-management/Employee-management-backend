@@ -64,12 +64,14 @@ public class LoginDaoImpl implements LoginDao {
 //        System.out.println(obj[0]+","+obj[1]);
         LoginResponse temp = new LoginResponse();
         User user = (User) obj[0];
-
-        String employeeHql = "Select e FROM Employee e Where personId = :employeeId";
+        String employeeHql = "Select e FROM Employee e Where personId = :personId";
         String personHql = "Select p FROM Person p Where id = :personId";
+        String appWorkFlowHql = "SELECT wf FROM ApplicationWorkFlow wf WHERE employeeId = :employeeId";
 
-        Employee employee = (Employee) session.createQuery(employeeHql).setParameter("employeeId", user.getPersonId()).list().get(0);
+
         Person person = (Person) session.createQuery(personHql).setParameter("personId", user.getPersonId()).list().get(0);
+        Employee employee = (Employee) session.createQuery(employeeHql).setParameter("personId",user.getPersonId() ).list().get(0);
+        ApplicationWorkFlow appwf = (ApplicationWorkFlow) session.createQuery(appWorkFlowHql).setParameter("employeeId", employee.getId()).list().get(0);
 
         Integer roleId = (Integer) obj[1];
         temp.setId(user.getId());
@@ -86,6 +88,7 @@ public class LoginDaoImpl implements LoginDao {
         temp.seteId(employee.getId());
         temp.setFullName(person.getFirstName() + " " + person.getLastName());
         temp.setCellPhone(person.getCellphone());
+        temp.setStatus(appwf.getStatus());
         return temp;
     }
 }

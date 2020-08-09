@@ -24,14 +24,14 @@ public class LoginResponse {
     private String token;
     private String fullName;
     private String cellPhone;
-    private boolean status;
+    private String status; // Open, Pending, Completed, Rejected
 
 
-    public boolean isStatus() {
+    public String isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -58,7 +58,7 @@ public class LoginResponse {
                 '}';
     }
 
-    public LoginResponse(int id, int eId, String cellPhone, String fullName, String userName, String email, String password, Integer personId, String createDate, String modificationDate, Integer roleId, String token, String startDate, String avartar, String title) {
+    public LoginResponse(int id, int eId, String cellPhone, String fullName, String userName, String email, String password, Integer personId, String createDate, String modificationDate, Integer roleId, String token, String startDate, String avartar, String title, String status) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -74,6 +74,11 @@ public class LoginResponse {
         this.eId = eId;
         this.fullName = fullName;
         this.cellPhone = cellPhone;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void setToken(String token) {
