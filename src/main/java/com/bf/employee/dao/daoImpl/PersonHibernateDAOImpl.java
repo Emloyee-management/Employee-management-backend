@@ -148,6 +148,8 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
         String userQ = "SELECT u FROM User u WHERE personId = :person_id";
         String visaStatusQ = "SELECT v FROM VisaStatus v WHERE createUser = :username";
         String apppWorkFlowQ = "SELECT wf FROM ApplicationWorkFlow  wf WHERE employeeId = :employee_id";
+        String userRoleQ = "SELECT ur FROM UserRole  ur WHERE userId = :userId";
+        String roleQ = "SELECT r FROM Role r WHERE id = :roleId";
 
        // String contactQ = "SELECT c FROM Contact c WHERE personId = :person_id AND isEmergency = 1";
 
@@ -166,18 +168,23 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
             Query employeeQuery = getCurrentSession().createQuery(employeeQ);
             Query addressQuery = getCurrentSession().createQuery(addressQ);
             Query visaStatusQuery = getCurrentSession().createQuery(visaStatusQ);
+            Query userRoleQuery = getCurrentSession().createQuery(userRoleQ);
             //Query appWorkFlowQuery = getCurrentSession().createQuery(apppWorkFlowQ);//below
+            //Query RoleQuery = getCurrentSession().createQuery(roleQ);//below
             //Query contactQuery = getCurrentSession().createQuery(contactQ);
 
             employeeQuery.setParameter("person_id", personId);
             addressQuery.setParameter("person_id", personId);
             visaStatusQuery.setParameter("username",username);
+            userRoleQuery.setParameter("userId",u.getId());
+            //RoleQuery.setParameter("roleId",roleId);//below
             //appWorkFlowQuery.setParameter("person_id", personId);//below
             //contactQuery.setParameter("person_id", personId);
 
             Employee e = (Employee) employeeQuery.list().get(0);
             Address a = (Address) addressQuery.list().get(0);
             VisaStatus v = (VisaStatus) visaStatusQuery.list().get(0);
+            UserRole ur = (UserRole) userRoleQuery.list().get(0);
             //ApplicationWorkFlow wf = (ApplicationWorkFlow)appWorkFlowQuery.list().get(0);//below
             //Contact c = (Contact) contactQuery.list().get(0);
 
@@ -218,6 +225,11 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
             appWorkFlowQuery.setParameter("employee_id", employeeId);
             ApplicationWorkFlow wf = (ApplicationWorkFlow) appWorkFlowQuery.list().get(0);
             pr.setAppWorkFlowStatus(wf.getStatus());
+
+            Query roleQuery = getCurrentSession().createQuery(roleQ);
+            roleQuery.setParameter("roleId",ur.getRoleId());
+            Role r = (Role) roleQuery.list().get(0);
+            pr.setRoleName(r.getRoleName());
             
             pInfoList.add(pr);
 
@@ -227,6 +239,18 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
 
         return pInfoList;
 
+    }
+
+    @Override
+    public int updatePerson(Person person) {
+        getCurrentSession().clear();
+        System.out.println(person.toString());
+        getCurrentSession().getTransaction();
+//        getCurrentSession().beginTransaction();
+
+        getCurrentSession().update(person);
+        getCurrentSession().flush();
+        return person.getId();
     }
 
 

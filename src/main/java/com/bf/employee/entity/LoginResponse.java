@@ -16,15 +16,22 @@ public class LoginResponse {
     private Integer personId;
     private String createDate;
     private String modificationDate;
+    private String title;
+    private String startDate;
+    private String avartar;
     private Integer roleId;
+    private Integer eId;
     private String token;
-    private boolean status;
+    private String fullName;
+    private String cellPhone;
+    private String status; // Open, Pending, Completed, Rejected
 
-    public boolean isStatus() {
+
+    public String isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -51,7 +58,7 @@ public class LoginResponse {
                 '}';
     }
 
-    public LoginResponse(int id, String userName, String email, String password, Integer personId, String createDate, String modificationDate, Integer roleId, String token) {
+    public LoginResponse(int id, int eId, String cellPhone, String fullName, String userName, String email, String password, Integer personId, String createDate, String modificationDate, Integer roleId, String token, String startDate, String avartar, String title, String status) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -61,6 +68,17 @@ public class LoginResponse {
         this.modificationDate = modificationDate;
         this.roleId = roleId;
         this.token = token;
+        this.title = title;
+        this.startDate = startDate;
+        this.avartar = avartar;
+        this.eId = eId;
+        this.fullName = fullName;
+        this.cellPhone = cellPhone;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void setToken(String token) {
@@ -131,4 +149,53 @@ public class LoginResponse {
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getAvartar() {
+        return this.avartar;
+    }
+
+    public void setAvartar(String avartar) {
+        this.avartar = avartar;
+    }
+
+    public Integer getEid() {
+        return this.eId;
+    }
+
+    public void seteId(Integer eId) {
+        this.eId = eId;
+    }
+
+    public String getFullname() {
+        return this.fullName;
+    }
+
+    public void setFullName(String fn) {
+        this.fullName = fn;
+    }
+
+    public String getCellPhone() {
+        return this.cellPhone;
+    }
+
+    public void setCellPhone(String cp) {
+        this.cellPhone = cp;
+    }
+
 }

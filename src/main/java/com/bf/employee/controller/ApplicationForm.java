@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.*;
 
 @RestController
 public class ApplicationForm {
+    @Resource
+    private HttpServletRequest request;
     @Autowired
     private PersonService personService;
     @Autowired
@@ -26,24 +31,28 @@ public class ApplicationForm {
     private AddressService addressService;
 
     /*
-    * Controller method for testing parsing HTTP request parameters
-    * */
-    @RequestMapping(path ="/test", consumes= "application/json")
-    public void test(@RequestBody Map<String, String> something){
+     * Controller method for testing parsing HTTP request parameters
+     * */
+    @RequestMapping(path = "/test", consumes = "application/json")
+    public void test(@RequestBody Map<String, String> something) {
         System.out.println(something.get("key"));
     }
 
     /*
-    * Controller method for parsing HTTP request and create Person, Employee objects, and save them to the DB.
-    */
-    @RequestMapping(path = "/applicationForm", consumes="application/json")
+     * Controller method for parsing HTTP request and create Person, Employee objects, and save them to the DB.
+     */
+    @RequestMapping(path = "/applicationForm", method = RequestMethod.POST)
     @Transactional
     public void parseApplicationForm(@RequestBody Map<String, String> applicationForm) throws ParseException {
+        System.out.println(applicationForm.toString());
+        System.out.println("yoyo");
+//        System.out.println(applicationForm.get("formData"));
 
         /*
          * Create Person, Employee, Address, and VisaStatus and start Onboarding process.
          */
         Person person1 = Person.builder()
+                .id(Integer.parseInt(request.getParameter("personId")))
                 .firstName(applicationForm.get("firstName"))
                 .lastName(applicationForm.get("lastName"))
                 .middleName(applicationForm.get("middleName"))
@@ -54,22 +63,22 @@ public class ApplicationForm {
                 .gender(applicationForm.get("gender"))
                 .email(applicationForm.get("email"))
                 .build();
-        String car = employeeService.carFormatter(applicationForm.get("car_maker"),
-                applicationForm.get("car_model"),
-                applicationForm.get("car_color"));
+//        String car = employeeService.carFormatter(applicationForm.get("car_maker"),
+//                applicationForm.get("car_model"),
+//                applicationForm.get("car_color"));
         Employee employee1 = Employee.builder()
 //                    .personId()
-                    .avatar(applicationForm.get("avatar"))
-                    .car(car)
+                .avatar(applicationForm.get("avatar"))
+                .car(applicationForm.get("car"))
 //                    .visaType()
-                    .visaStartDate(applicationForm.get("visaStartDate"))
-                    .visaEndDate(applicationForm.get("visaEndDate"))
-                    .driverLicence(applicationForm.get("driverLicence"))
-                    .driverExpirationDate(applicationForm.get("driverL_expirationDate"))
-                    .build();
+                .visaStartDate(applicationForm.get("visaStartDate"))
+                .visaEndDate(applicationForm.get("visaEndDate"))
+                .driverLicence(applicationForm.get("driverLicence"))
+                .driverExpirationDate(applicationForm.get("driverL_expirationDate"))
+                .build();
         int isVisaStatusActive = visaStatusService.isVisaStatusActive(applicationForm.get("visaEndDate"));
         VisaStatus visaStatus1 = VisaStatus.builder()
-                .CreateUser(applicationForm.get("userName"))
+                .CreateUser(request.getParameter("userName"))
                 .VisaType(applicationForm.get("visaType"))
                 .Active(isVisaStatusActive)
                 .build();
@@ -85,10 +94,11 @@ public class ApplicationForm {
 
         boolean isOnBoard = personService.onBoardEmployee(person1, employee1, address1, visaStatus1);
         System.out.println("isOnBoard: " + isOnBoard);
+        System.out.println(person1.toString());
 
         /*
-        * Create Reference : Person, Address, Contact
-        */
+         * Create Reference : Person, Address, Contact
+         */
         Person reference = Person.builder()
                 .firstName(applicationForm.get("reference_firstName"))
                 .lastName(applicationForm.get("reference_lastName"))
@@ -111,11 +121,11 @@ public class ApplicationForm {
                 .relationship(applicationForm.get("reference_relationship"))
                 .build();
         boolean isReference = personService.addReference(reference, reference_address, reference_contact);
-        System.out.println("isReference: "+ isReference);
+        System.out.println("isReference: " + isReference);
 
         /*
-        * Create Emergency Contacts
-        */
+         * Create Emergency Contacts
+         */
         Person emergency = Person.builder()
                 .firstName(applicationForm.get("emergency_firstName"))
                 .lastName(applicationForm.get("emergency_lastName"))
@@ -127,7 +137,7 @@ public class ApplicationForm {
                 .relationship(applicationForm.get("emergency_relationship")).build();
 //                .personId()
         boolean isEmergency = personService.addEmergencyContact(emergency, emergency_contact);
-        System.out.println("isEmergency: "+isEmergency);
+        System.out.println("isEmergency: " + isEmergency);
 
     }
 

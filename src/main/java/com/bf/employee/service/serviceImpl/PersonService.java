@@ -30,30 +30,45 @@ public class PersonService {
 
     @Transactional
     public boolean onBoardEmployee(Person person, Employee employee, Address address, VisaStatus visaStatus){
-        /*
-        * First, check if the Person exist in DB or not.
-        * If the person exist, return null Person object.
-        * If the person does not exist, insert it into Person DB, VisaStatus DB, Address DB, and Employee DB.
-        */
-        if(personDAO.isPersonExist(person)){ // the person already EXISTS in the DB
-            return false;
-        }else{ //the person does NOT EXIST In DB
-            int personId = personDAO.registerPerson(person);
-            int vsId = visaStatusDAO.registerVisaStatus(visaStatus);
-            employee.setPersonId(personId);
-            employee.setVisaStatusId(vsId);
-            int employeeId = employeeDAO.registerEmployee(employee);
-            ApplicationWorkFlow appWorkFlow = buildAppWorkFlow(employeeId);
-            applicationWorkFlowDAO.registerApplicationWorkFlow(appWorkFlow);
-            address.setPersonId(personId);
-            addressDAO.registerAddress(address);
-            return true;
-        }
+
+        //person
+        int personId = personDAO.updatePerson(person);
+
+        //visaStatus
+        visaStatus.setId(visaStatusDAO.findByUserName(visaStatus.getCreateUser()));
+        visaStatus.setModificationDate(now());
+        visaStatusDAO.updateVisaType(visaStatus.getId(),visaStatus.getVisaType());
+
+        int vsId = visaStatus.getId();
+
+        //employee
+        employee.setPersonId(personId);
+        employee.setVisaStatusId(vsId);
+        employee.setId(employeeDAO.getEmployeeIdByPersonId(personId));
+        int employeeId = employeeDAO.updateEmployee(employee);
+
+        //applicationWorkFlow
+        applicationWorkFlowDAO.updateStatus("onboarding", employeeId, "Pending", now());
+
+        //address
+        int addressId = addressDAO.getAddressIdByPersonId(personId);
+        address.setPersonId(personId);
+        address.setId(addressId);
+        addressDAO.updateAddress(address);
+        return true;
+
 
     }
 
+    public String now(){
+        String pattern = "MM/dd/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String now = simpleDateFormat.format(new Date());
+        return now;
+    }
+
     public ApplicationWorkFlow buildAppWorkFlow(int employeeId){
-        String pattern = "MM-dd-yyyy";
+        String pattern = "MM/dd/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
 
@@ -61,7 +76,7 @@ public class PersonService {
                 .employeeId(employeeId)
                 .createdDate(date)
                 .modificationDate(date)
-                .status("reviewRequired")
+                .status("pending")
                 .type("onboarding")
                 .build();
         return appWorkFlow;
@@ -75,16 +90,16 @@ public class PersonService {
         */
         if(personDAO.isPersonExist(person)){
             //update contact
-            int personId = personDAO.findByName(person.getFirstName(),person.getLastName(),person.getEmail());
-            contact.setPersonId(personId);
-            contactDAO.registerContact(contact);
+//            int personId = personDAO.findByName(person.getFirstName(),person.getLastName(),person.getEmail());
+//            contact.setPersonId(personId);
+//            contactDAO.registerContact(contact);
             return false;
         }else{
-            int personId = personDAO.registerPerson(person);
-            address.setPersonId(personId);
-            addressDAO.registerAddress(address);
-            contact.setPersonId(personId);
-            contactDAO.registerContact(contact);
+//            int personId = personDAO.registerPerson(person);
+//            address.setPersonId(personId);
+//            addressDAO.registerAddress(address);
+//            contact.setPersonId(personId);
+//            contactDAO.registerContact(contact);
             return true;
         }
     }
@@ -97,14 +112,14 @@ public class PersonService {
          */
         if(personDAO.isPersonExist(person)){
             //update contact
-            int personId = personDAO.findByName(person.getFirstName(),person.getLastName(),person.getEmail());
-            contact.setPersonId(personId);
-            contactDAO.registerContact(contact);
+//            int personId = personDAO.findByName(person.getFirstName(),person.getLastName(),person.getEmail());
+//            contact.setPersonId(personId);
+//            contactDAO.registerContact(contact);
             return false;
         }else{
-            int personId = personDAO.registerPerson(person);
-            contact.setPersonId(personId);
-            contactDAO.registerContact(contact);
+//            int personId = personDAO.registerPerson(person);
+//            contact.setPersonId(personId);
+//            contactDAO.registerContact(contact);
             return true;
         }
     }
@@ -134,7 +149,7 @@ public class PersonService {
         int day = Integer.parseInt(sday);
 
         Date dob = new GregorianCalendar(year, month - 1, day).getTime();
-        String pattern = "MM-dd-yyyy";
+        String pattern = "MM/dd/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(dob);
 

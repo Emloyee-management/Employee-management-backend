@@ -11,5 +11,6 @@ public interface EmployeeDAO {
     * Register Employee to DB
     */
     int registerEmployee(Employee employee);
-
+    int updateEmployee(Employee employee);
+    int getEmployeeIdByPersonId(int personId);
 }

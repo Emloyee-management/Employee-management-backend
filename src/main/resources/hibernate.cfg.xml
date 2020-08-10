@@ -15,7 +15,7 @@
     <property name="hibernate.hbm2ddl.auto">update</property>
       <property name="current_session_context_class">thread</property>
 
-      <mapping resource="User.hbm.xml"/>
+    <mapping resource="User.hbm.xml"/>
       <mapping class="com.bf.employee.entity.User"/>
       <mapping class="com.bf.employee.entity.Role"/>
       <mapping resource="Role.hbm.xml"/>
@@ -56,6 +56,10 @@
       <mapping class="com.bf.employee.entity.Facility"/>
       <mapping class="com.bf.employee.entity.ApplicationWorkFlow"/>
       <mapping resource="ApplicationWorkFlow.hbm.xml"/>
+      <mapping resource="DigitalDocument.hbm.xml"/>
+      <mapping class="com.bf.employee.entity.DigitalDocument"/>
+      <mapping class="com.bf.employee.entity.PersonalDocument"/>
+      <mapping resource="PersonalDocument.hbm.xml"/>
 
 
       <!-- DB schema will be updated if needed -->

@@ -9,4 +9,5 @@ import java.io.IOException;
 public interface FileOperationDao {
     void uploadFile(MultipartFile multipartFile, Integer id) throws IOException;
     ResponseEntity download(String fileName, Integer id) throws FileNotFoundException;
+
 }

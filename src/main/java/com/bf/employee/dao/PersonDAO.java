@@ -26,5 +26,7 @@ public interface PersonDAO {
     public PersonalInfoResponse getPersonalInfo(Integer personId);
 
     List<HRPersonalInfoResponse> getPersonList();
+
+    int updatePerson(Person person);
 }
 

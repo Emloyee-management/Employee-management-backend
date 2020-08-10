@@ -4,7 +4,7 @@ import java.util.List;
 
 public class HouseEmployeeResponse {
     private String houseAddress;
-    private List<Object> employeeList;
+    private List<PersonResponse> employeeList;
 
     public String getHouseAddress() {
         return houseAddress;
@@ -14,11 +14,11 @@ public class HouseEmployeeResponse {
         this.houseAddress = houseAddress;
     }
 
-    public List<Object> getEmployeeList() {
+    public List<PersonResponse> getEmployeeList() {
         return employeeList;
     }
 
-    public void setEmployeeList(List<Object> employeeList) {
+    public void setEmployeeList(List<PersonResponse> employeeList) {
         this.employeeList = employeeList;
     }
 }

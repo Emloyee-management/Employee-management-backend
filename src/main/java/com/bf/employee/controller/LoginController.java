@@ -44,6 +44,7 @@ public class LoginController {
             LoginResponse user = (LoginResponse) service.findUserByUsername(username);
             String token = JwtUtil.generateToken(signingKey, username);
             user.setToken(token);
+            System.out.println(user.toString());
             return user;
         }
         else {

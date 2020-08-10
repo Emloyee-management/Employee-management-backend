@@ -10,5 +10,7 @@ public interface AddressDAO {
     * Register Address to DB
     */
     int registerAddress(Address address);
+    int getAddressIdByPersonId(int personId);
+    int updateAddress(Address address);
 
 }

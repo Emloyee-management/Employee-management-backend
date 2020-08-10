@@ -3,6 +3,7 @@ package com.bf.employee.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Entity
 @Builder
 @AllArgsConstructor
+@ToString
 public class Employee {
     private int id;
     private Integer personId;

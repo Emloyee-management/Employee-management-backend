@@ -2,6 +2,7 @@ package com.bf.employee.controller;
 
 import com.bf.employee.dao.UserDAO;
 import com.bf.employee.entity.*;
+import com.bf.employee.service.serviceImpl.RegistrationService;
 import com.bf.employee.service.serviceImpl.RegistrationTokenService;
 import com.bf.employee.service.serviceImpl.UserService;
 import org.hibernate.Session;
@@ -28,6 +29,8 @@ public class UserRegistration {
     private UserService userService;
     @Autowired
     private RegistrationTokenService registrationTokenService;
+    @Autowired
+    private RegistrationService registrationService;
 
 //    /*
 //    * This is just for testing DB connection
@@ -59,10 +62,16 @@ public class UserRegistration {
         user1.setUserName(username);
         user1.setEmail(email);
         user1.setPassword(password);
-        boolean success = userService.registerUser(user1);
-        if(success){ //user is successfully registered to the DB
+//        boolean success = userService.registerUser(user1);
+//        if(success){ //user is successfully registered to the DB
+//            return user1;
+//        }else{ //user already exist in the DB
+//            return new User();
+//        }
+
+        if(registrationService.registerUser(user1)){
             return user1;
-        }else{ //user already exist in the DB
+        }else{
             return new User();
         }
 
