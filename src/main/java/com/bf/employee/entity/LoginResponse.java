@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 //@Component
 public class LoginResponse {
     private int id;
+    private int userId;
     private String userName;
     private String email;
     private String password;
@@ -58,8 +59,9 @@ public class LoginResponse {
                 '}';
     }
 
-    public LoginResponse(int id, int eId, String cellPhone, String fullName, String userName, String email, String password, Integer personId, String createDate, String modificationDate, Integer roleId, String token, String startDate, String avartar, String title, String status) {
+    public LoginResponse(int id, int eId, int uId, String cellPhone, String fullName, String userName, String email, String password, Integer personId, String createDate, String modificationDate, Integer roleId, String token, String startDate, String avartar, String title, String status) {
         this.id = id;
+        this.userId = uId;
         this.userName = userName;
         this.email = email;
         this.password = password;
@@ -196,6 +198,14 @@ public class LoginResponse {
 
     public void setCellPhone(String cp) {
         this.cellPhone = cp;
+    }
+
+    public void setUserId(Integer uId){
+        this.userId = uId;
+    }
+
+    public Integer getUserId(){
+        return this.userId;
     }
 
 }

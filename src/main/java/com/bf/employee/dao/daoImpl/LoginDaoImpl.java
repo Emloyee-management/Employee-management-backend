@@ -61,7 +61,6 @@ public class LoginDaoImpl implements LoginDao {
                 .setParameter("name", username)
                 .list();
         Object[] obj = (Object[]) list.get(0);
-//        System.out.println(obj[0]+","+obj[1]);
         LoginResponse temp = new LoginResponse();
         User user = (User) obj[0];
         String employeeHql = "Select e FROM Employee e Where personId = :personId";
@@ -75,6 +74,7 @@ public class LoginDaoImpl implements LoginDao {
 
         Integer roleId = (Integer) obj[1];
         temp.setId(user.getId());
+        temp.setUserId(user.getId());
         temp.setUserName(user.getUserName());
         temp.setEmail(user.getEmail());
         temp.setCreateDate(user.getCreateDate());

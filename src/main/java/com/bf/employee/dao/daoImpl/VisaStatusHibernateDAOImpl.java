@@ -53,8 +53,7 @@ public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements 
 
     @Override
     public Boolean updateVisaType(int employeeVisaStatusId, String visaType) {
-        System.out.println("personService: "+visaType.toString());
-        System.out.println("personServiceL" + employeeVisaStatusId);
+
         Session session = getCurrentSession();
         String hql = "UPDATE VisaStatus set visaType = :visaType " +
                 "WHERE id = :visaStatusId";
