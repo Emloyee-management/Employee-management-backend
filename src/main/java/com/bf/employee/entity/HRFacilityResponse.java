@@ -8,6 +8,7 @@ import java.util.List;
  * @Time: 2020/8/7
  */
 public class HRFacilityResponse {
+    private Integer houseId;
     private Integer numOfBeds;
     private Integer numOfMattress;
     private Integer numOfTables;
@@ -15,12 +16,12 @@ public class HRFacilityResponse {
     List<FacilityReport> facilityReports;
     List<Employee> employees;
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public Integer getHouseId() {
+        return houseId;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+    public void setHouseId(Integer houseId) {
+        this.houseId = houseId;
     }
 
     public Integer getNumOfBeds() {
@@ -61,5 +62,13 @@ public class HRFacilityResponse {
 
     public void setFacilityReports(List<FacilityReport> facilityReports) {
         this.facilityReports = facilityReports;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

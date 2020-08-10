@@ -6,7 +6,7 @@ import com.bf.employee.dao.ApplicationWorkFlowDAO;
 import com.bf.employee.entity.Address;
 import com.bf.employee.entity.ApplicationWorkFlow;
 import com.bf.employee.entity.Employee;
-import javafx.application.Application;
+//import javafx.application.Application;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -87,7 +87,9 @@ public class HRHouseManagementDaoImpl implements HRHouseManagementDao{
 
         List<FacilityReport> facilityReports = new ArrayList<>();
         House h = new House();
+
         h.setId(hid);
+        res.setHouseId(hid);
         FacilityReportResponse temp = dao.getFacilityReportDetail(h);
         ReportResponse reportResponse = temp.getReportResponse().get(0);
         FacilityReport facilityReport = new FacilityReport();
