@@ -244,7 +244,12 @@ public class PersonHibernateDAOImpl extends AbstractHibernateDAO implements Pers
     @Override
     public int updatePerson(Person person) {
         getCurrentSession().clear();
+        System.out.println(person.toString());
+        getCurrentSession().getTransaction();
+//        getCurrentSession().beginTransaction();
+
         getCurrentSession().update(person);
+        getCurrentSession().flush();
         return person.getId();
     }
 

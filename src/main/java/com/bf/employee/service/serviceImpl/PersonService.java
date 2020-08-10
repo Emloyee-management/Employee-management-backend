@@ -38,6 +38,7 @@ public class PersonService {
         visaStatus.setId(visaStatusDAO.findByUserName(visaStatus.getCreateUser()));
         visaStatus.setModificationDate(now());
         visaStatusDAO.updateVisaType(visaStatus.getId(),visaStatus.getVisaType());
+
         int vsId = visaStatus.getId();
 
         //employee

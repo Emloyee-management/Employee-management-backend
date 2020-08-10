@@ -5,8 +5,10 @@ import com.bf.employee.dao.UserDAO;
 import com.bf.employee.entity.User;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional
 public class UserHibernateDAOImpl extends AbstractHibernateDAO implements UserDAO {
 
     public UserHibernateDAOImpl() {

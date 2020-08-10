@@ -8,9 +8,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+@Transactional
 @Repository
 public class RegistrationTokenHibernateDAOImpl extends AbstractHibernateDAO implements RegistrationTokenDAO {
 

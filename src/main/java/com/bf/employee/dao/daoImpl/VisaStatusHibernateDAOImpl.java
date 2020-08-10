@@ -6,6 +6,7 @@ import com.bf.employee.entity.VisaStatus;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,13 +53,19 @@ public class VisaStatusHibernateDAOImpl extends AbstractHibernateDAO implements 
 
     @Override
     public Boolean updateVisaType(int employeeVisaStatusId, String visaType) {
+        System.out.println("personService: "+visaType.toString());
+        System.out.println("personServiceL" + employeeVisaStatusId);
         Session session = getCurrentSession();
         String hql = "UPDATE VisaStatus set visaType = :visaType " +
                 "WHERE id = :visaStatusId";
+//        Transaction tx = session.beginTransaction();
         Query query = session.createQuery(hql);
         query.setParameter("visaType", visaType);
         query.setParameter("visaStatusId", employeeVisaStatusId);
         int result = query.executeUpdate();
+//        tx.commit();commit
+//        session.close();
+//        session.getTransaction().commit();
         if (result == 1) {
             return true;
         } else {

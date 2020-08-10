@@ -41,7 +41,12 @@ public class EmployeeHibernateDAOImpl extends AbstractHibernateDAO implements Em
     @Override
     public int updateEmployee(Employee employee) {
         getCurrentSession().clear();
+        getCurrentSession().getTransaction();
+//        getCurrentSession().beginTransaction();
+
         getCurrentSession().update(employee);
+        getCurrentSession().flush();
+//        getCurrentSession().update(employee);
         return employee.getId();
     }
 
