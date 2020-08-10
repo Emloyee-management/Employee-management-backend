@@ -60,14 +60,14 @@ public class PersonService {
     }
 
     public String now(){
-        String pattern = "MM-dd-yyyy";
+        String pattern = "MM/dd/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String now = simpleDateFormat.format(new Date());
         return now;
     }
 
     public ApplicationWorkFlow buildAppWorkFlow(int employeeId){
-        String pattern = "MM-dd-yyyy";
+        String pattern = "MM/dd/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
 
@@ -148,7 +148,7 @@ public class PersonService {
         int day = Integer.parseInt(sday);
 
         Date dob = new GregorianCalendar(year, month - 1, day).getTime();
-        String pattern = "MM-dd-yyyy";
+        String pattern = "MM/dd/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(dob);
 

@@ -16,7 +16,7 @@ public class ApplicationWorkFlowService {
 
     @Transactional
     public void changeStatus(String type, int employeeId, String changedStatus){
-        String pattern = "MM-dd-yyyy";
+        String pattern = "MM/dd/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String now = simpleDateFormat.format(new Date());
         applicationWorkFlowDAO.updateStatus(type, employeeId, changedStatus, now);
