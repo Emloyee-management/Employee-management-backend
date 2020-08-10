@@ -9,6 +9,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -47,6 +48,7 @@ public class DocumentDaoImpl implements DocumentDao {
     }
 
     @Override
+    @Transactional
     public Boolean updateDocStatus(Integer eid, String docName) {
         Session session;
         try {
@@ -64,7 +66,7 @@ public class DocumentDaoImpl implements DocumentDao {
         personalDocument.setCreatedDate(formatter.format(date));
         personalDocument.setPath(Constant.CLASS_PATH + "\\" + eid + "\\" + docName);
         session.persist(personalDocument);
-        session.beginTransaction().commit();
+//        session.beginTransaction().commit();
 //        session.getTransaction().commit();
         return true;
     }
